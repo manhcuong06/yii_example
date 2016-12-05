@@ -23,6 +23,7 @@ class SiteController extends Controller
      */
     public function behaviors()
     {
+        // $this->layout = 'main_original';
         return [
             'access' => [
                 'class' => AccessControl::className(),
