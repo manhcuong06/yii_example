@@ -6,7 +6,7 @@ $this->title = 'Home';
 ?>
 <div class="site-index">
     <!-- Header -->
-    <header id="header">
+    <header>
         <div class="container">
             <div class="intro-text">
                 <div class="intro-lead-in">Welcome To Our Studio!</div>
@@ -245,7 +245,7 @@ $this->title = 'Home';
             <div class="row">
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="img/team/cuong-nguyen.jpg" class="img-responsive img-circle" alt="" width="239" height="239">
+                        <img src="img/team/cuong-nguyen.jpg" class="img-responsive img-circle" alt="" width="237" height="237">
                         <h4>Cuong Nguyen</h4>
                         <p class="text-muted">Lead Developer</p>
                         <ul class="list-inline social-buttons">
@@ -565,10 +565,5 @@ $this->title = 'Home';
                 </div>
             </div>
         </div>
-    </div>
-    <div class="back-to-top">
-        <a class="btn btn-primary page-scroll" href="#header">
-            <span class="glyphicon glyphicon-chevron-up"></span>
-        </a>
     </div>
 </div>
