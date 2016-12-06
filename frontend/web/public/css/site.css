@@ -109,3 +109,10 @@ a.desc:after {
 .nav > li > form > button:hover {
     text-decoration: none;
 }
+
+.back-to-top {
+    position: fixed;
+    right: 10px;
+    bottom: 50px;
+    opacity: 0.5;
+}
