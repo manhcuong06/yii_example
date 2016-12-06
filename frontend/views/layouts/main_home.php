@@ -30,11 +30,6 @@ AppAsset::register($this);
     <link rel="icon" href="/favicon.ico">
     <?php $this->head() ?>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
-    <!-- Theme CSS -->
-    <!-- <link href="/css/agency.min.css" rel="stylesheet"> -->
-
-    <!-- jQuery -->
 </head>
 
 <body>
@@ -43,16 +38,7 @@ AppAsset::register($this);
     <!-- Navigation -->
     <?= NavigationWidget::widget() ?>
 
-    <!-- Page content -->
-    <div class="wrap">
-        <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= Alert::widget() ?>
-            <?= $content ?>
-        </div>
-    </div>
+    <?= $content ?>
 
     <!-- Footer -->
     <?= FooterWidget::widget() ?>

@@ -23,7 +23,6 @@ class SiteController extends Controller
      */
     public function behaviors()
     {
-        // $this->layout = 'main_original';
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -73,6 +72,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main_home';
         return $this->render('index');
     }
 

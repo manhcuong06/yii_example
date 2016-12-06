@@ -14,9 +14,8 @@ class NavigationWidget extends Widget
 
 	public function run()
 	{
-		if (Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'index') {
-			$home_url = '';
-		} else {
+		$home_url = '';
+		if (Yii::$app->controller->id != 'site' || Yii::$app->controller->action->id != 'index') {
 			$home_url = Yii::$app->homeUrl;
 		}
         return $this->render('navigation', [
