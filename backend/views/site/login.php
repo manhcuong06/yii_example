@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div id="new_id" class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
 
@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="form-group new_class">
                     <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
-                <div>Nguyen Manh Cuong example branch</div>
 
             <?php ActiveForm::end(); ?>
         </div>
