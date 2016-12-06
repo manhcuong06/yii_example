@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="form-group new_class">
                     <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
-                <div>Nguyen Manh Cuong example branch</div>
 
             <?php ActiveForm::end(); ?>
         </div>
