@@ -44,6 +44,7 @@ AppAsset::register($this);
     <?= FooterWidget::widget() ?>
 
     <?php $this->endBody() ?>
+<script src="/public/js/slide_menu.js"></script>
 </body>
 
 </html>

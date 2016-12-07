@@ -4,7 +4,7 @@
 
 $this->title = 'Home';
 ?>
-<div class="site-index">
+<div id="top-home" class="site-index">
     <!-- Header -->
     <header id="top" class="header">
         <div class="text-vertical-center">
