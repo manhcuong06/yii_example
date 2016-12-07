@@ -10,6 +10,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use frontend\widgets\NavigationWidget;
+use frontend\widgets\MenuTopWidget;
 use frontend\widgets\FooterWidget;
 
 AppAsset::register($this);
@@ -30,11 +31,6 @@ AppAsset::register($this);
     <link rel="icon" href="/favicon.ico">
     <?php $this->head() ?>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
-    <!-- Theme CSS -->
-    <!-- <link href="/css/agency.min.css" rel="stylesheet"> -->
-
-    <!-- jQuery -->
 </head>
 
 <body>
@@ -43,21 +39,27 @@ AppAsset::register($this);
     <!-- Navigation -->
     <?= NavigationWidget::widget() ?>
 
+    <!-- Menu Top -->
+    <?= MenuTopWidget::widget() ?>
+
     <!-- Page content -->
-    <div class="wrap">
-        <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?= Alert::widget() ?>
-            <?= $content ?>
+    <main class="cd-main-content">
+        <div class="wrap">
+            <div class="container">
+                <?= Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
+                <?= Alert::widget() ?>
+                <?= $content ?>
+            </div>
         </div>
-    </div>
+    </main>
 
     <!-- Footer -->
     <?= FooterWidget::widget() ?>
 
     <?php $this->endBody() ?>
+<script src="/public/js/slide_menu.js"></script>
 </body>
 
 </html>
