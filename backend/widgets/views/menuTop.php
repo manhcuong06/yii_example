@@ -1,7 +1,7 @@
 <header>
     <div class="headerwrapper">
         <div class="header-left">
-            <a href="index.html" class="logo">
+            <a href="/" class="logo">
                 <img src="/public/img/logo.png" alt="" />
             </a>
             <div class="pull-right">
