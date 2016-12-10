@@ -24,4 +24,15 @@ $this->title = $name;
         Please contact us if you think this is a server error. Thank you.
     </p>
 
+    <h3>Back to home in <span class="text-danger">5</span> secconds</h3>
+
 </div>
+<script>
+setInterval(function() {
+    var second = $('.text-danger').text();
+    $('.text-danger').text(second - 1);
+    if (second == 1) {
+        window.location = '/';
+    }
+}, 1000);
+</script>

@@ -11,25 +11,37 @@ $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="panel panel-signin">
+        <div class="panel-body">
+            <div class="logo text-center">
+                <img src="/public/img/logo-primary.png" alt="Chain Logo" >
+            </div>
+            <br />
+            <h4 class="text-center mb5">Already a Member?</h4>
+            <p class="text-center">Sign in to your account</p>
+            
+            <div class="mb30"></div>
+            <?php $form = ActiveForm::begin([
+                'id' => 'login-form',
+                'fieldClass' => 'backend\widgets\_ActiveField',
+            ]); ?>
+                <?= $form->field($model, 'email')->textInput(['autofocus' => true])->icon('user') ?>
 
-    <p>Please fill out the following fields to login:</p>
-
-    <div class="row">
-        <div id="new_id" class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-
-                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password', [
+                ])->passwordInput()->icon('lock') ?>
 
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
                 <div class="form-group new_class">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton('Sign In <i class="fa fa-angle-right ml5"></i>', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>
+        </div>
+        <div class="panel-footer">
+            <?= Html::a('Not yet a Member? Create Account Now', '#', [
+                'class' => 'btn btn-primary btn-block',
+            ]) ?>
         </div>
     </div>
 </div>

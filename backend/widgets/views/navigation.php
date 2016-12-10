@@ -1,3 +1,7 @@
+<?php
+use yii\helpers\Html;
+use yii\Url;
+?>
 <div class="leftpanel">
     <div class="media profile-left">
         <a class="pull-left profile-thumb" href="profile.html">
@@ -7,12 +11,15 @@
             <h4 class="media-heading">Cuong Nguyen</h4>
             <small class="text-muted">Code Lover</small>
         </div>
-    </div><!-- media -->
+    </div>
 
     <h5 class="leftpanel-title">Navigation</h5>
     <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="/"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
-        <li><a href="messages.html"><span class="pull-right badge">5</span><i class="fa fa-envelope-o"></i> <span>Messages</span></a></li>
+        <li id="site" class="active"><?= Html::a('<i class="fa fa-home"></i> <span>Home</span>', '/') ?></li>
+        <li id="product"><?= Html::a('<i class="glyphicon glyphicon-phone"></i> <span>Product</span>', '/product') ?></li>
+
+        <li><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
+        <li><a href="/product"><span class="pull-right badge">5</span><i class="fa fa-envelope-o"></i> <span>Messages</span></a></li>
         <li class="parent"><a href="#"><i class="fa fa-suitcase"></i> <span>UI Elements</span></a>
             <ul class="children">
                 <li><a href="/">Alerts &amp; Notifications</a></li>
@@ -60,4 +67,10 @@
             </ul>
         </li>
     </ul>
-</div><!-- leftpanel -->
+</div>
+<script>
+    var old_active_li = $('ul.nav.nav-pills.nav-stacked li.active');
+    var new_active_li = $('ul.nav.nav-pills.nav-stacked li#' + <?= '\''.Yii::$app->controller->id.'\'' ?>);
+    old_active_li.removeClass('active');
+    new_active_li.addClass('active');
+</script>

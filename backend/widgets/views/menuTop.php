@@ -1,3 +1,6 @@
+<?php
+use yii\helpers\Html;
+?>
 <header>
     <div class="headerwrapper">
         <div class="header-left">
@@ -138,7 +141,11 @@
                       <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
                       <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> Help</a></li>
                       <li class="divider"></li>
-                      <li><a href="#"><i class="glyphicon glyphicon-log-out"></i>Sign Out</a></li>
+                      <li>
+                        <?= Html::a('<i class="glyphicon glyphicon-log-out"></i>Sign Out', '/site/logout', [
+                            'data-method' => 'post',
+                        ]) ?>
+                    </li>
                     </ul>
                 </div><!-- btn-group -->
                 
