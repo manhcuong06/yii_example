@@ -9,8 +9,13 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
+use backend\widgets\MenuTopWidget;
+use backend\widgets\NavigationWidget;
 
 AppAsset::register($this);
+
+$body_class = Yii::$app->user->isGuest ? 'signin' : '';
+$icon_name = Yii::$app->params['icons'][Yii::$app->controller->id];
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -21,57 +26,47 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <script src="/public/js/jquery-1.11.1.min.js"></script>
 </head>
-<body>
+<body class='<?= $body_class ?>'>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->name . ')',
-                ['class' => 'btn btn-link']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
-
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+<?php if(Yii::$app->user->isGuest) { ?>
+    <?= $content ?>
+<?php } else { ?>
+<?= MenuTopWidget::widget() ?>
+<section>
+    <div class="mainwrapper">
+        <?= NavigationWidget::widget() ?>
+        <div class="mainpanel">
+            <div class="pageheader">
+                <div class="media">
+                    <div class="pageicon pull-left">
+                        <i class="fa fa-<?= $icon_name ?>"></i>
+                    </div>
+                    <div class="media-body">
+                        <ul class="breadcrumb">
+                            <?= Breadcrumbs::widget([
+                                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                                'homeLink' => [
+                                    'label' => '<i class="glyphicon glyphicon-home"></i>',
+                                    'encode' => false,
+                                    'url' => '/',
+                                ],
+                            ]) ?>
+                        </ul>
+                        <h4><?= $this->title ?></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="contentpanel">
+                <?= Alert::widget() ?>
+                <?= $content ?>
+            </div>
+        </div>
     </div>
-</div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
+</section>
+<?php } ?>
 
 <?php $this->endBody() ?>
 </body>
