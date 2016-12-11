@@ -9,35 +9,25 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="product-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'category_id')->textInput() ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'summary')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'detail')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'price')->textInput() ?>
-
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'is_new')->textInput() ?>
-
-    <?= $form->field($model, 'views')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'discount')->textarea(['rows' => 6]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
+    <form class="form-horizontal form-bordered">
+        ID <input type="text" id="id"/>
+        Category <input type="text" id="category_id"/>
+        Name <input type="text" id="name"/>
+        Summary <input type="text" id="summary"/>
+        Detail <input type="text" id="detail"/>
+        Price <input type="text" id="price"/>
+        Image <input type="text" id="image"/>
+        Is new <input type="text" id="is_new"/>
+        Views <input type="text" id="views"/>
+        Created at <input type="text" id="created_at"/>
+        Status <input type="text" id="status"/>
+        Discount <input type="text" id="discount"/>
+    </form>
 </div>
+
+<script>
+var model = (<?= $obj ?>);
+for(var x in model){
+    var input = $('input#' + x)[0].value = model[x];
+}
+</script>

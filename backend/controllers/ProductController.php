@@ -88,6 +88,11 @@ class ProductController extends Controller
      */
     public function actionUpdate($id)
     {
+        $obj = Product::find()
+            ->where(['id' => $id])
+            ->asArray()
+            ->one()
+        ;
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -95,6 +100,7 @@ class ProductController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'obj' => json_encode($obj),
             ]);
         }
     }
