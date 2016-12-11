@@ -50,7 +50,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'image',
                 'format' => 'raw',
                 'value' => function($model, $key, $index) {
-                    return Html::img('/public/img/photos/cuong-nguyen.jpg', [
+                    return Html::img("/public/img/product/$model->image", [
+                        'alt' => 'image',
                         'width' => 50,
                         'height' => 50,
                     ]);

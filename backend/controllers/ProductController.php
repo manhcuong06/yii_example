@@ -55,8 +55,10 @@ class ProductController extends Controller
      */
     public function actionView($id)
     {
+        $categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'categories' => $categories,
         ]);
     }
 

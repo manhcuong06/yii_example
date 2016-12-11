@@ -29,17 +29,32 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'category_id',
+            [
+                'attribute' => 'category_id',
+                'value' => $categories[$model->category_id],
+            ],
             'name',
-            'summary:ntext',
-            'detail:ntext',
+            'summary',
             'price',
-            'image',
-            'is_new',
+            [
+                'attribute' => 'image',
+                'format' => 'raw',
+                'value' => "<img src='/public/img/product/$model->image' width=100 height=100>",
+            ],
+            [
+                'attribute' => 'is_new',
+                'value' => ($model->is_new) ? 'Yes' : 'No',
+            ],
             'views',
             'created_at',
-            'status',
-            'discount:ntext',
+            [
+                'attribute' => 'status',
+                'value' => Yii::$app->params['product_status'][$model->status],
+                'contentOptions' => [
+                    'class' => $model->status ? 'text-success' : 'text-danger',
+                ],
+            ],
+            'discount',
         ],
     ]) ?>
 
