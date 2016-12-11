@@ -26,8 +26,8 @@ use yii\widgets\ActiveForm;
 </div>
 
 <script>
-var model = (<?= $obj ?>);
-for(var x in model){
+var model = <?= $obj ?>;
+for (var x in model){
     var input = $('input#' + x)[0].value = model[x];
 }
 </script>
