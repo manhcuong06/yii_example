@@ -16,7 +16,7 @@ class _ActiveField extends ActiveField
         $this->template =
             "{label}
             <div class='input-group mb15'>
-                <span class='input-group-addon'><i class=\"glyphicon glyphicon-{icon}\"></i></span>
+                <span class='input-group-addon'><i class=\"fa fa-{icon}\"></i></span>
                 {input}
             </div>
             {error}"

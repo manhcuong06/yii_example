@@ -3,7 +3,6 @@
 namespace backend\models;
 
 use Yii;
-use backend\models\ProductCategory;
 
 /**
  * This is the model class for table "product".
@@ -17,7 +16,7 @@ use backend\models\ProductCategory;
  * @property string $image
  * @property integer $is_new
  * @property integer $views
- * @property integer $created_at
+ * @property string $created_at
  * @property integer $status
  * @property string $discount
  */
@@ -37,9 +36,10 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'name', 'summary', 'detail', 'price', 'image', 'created_at'], 'required'],
-            [['category_id', 'price', 'is_new', 'views', 'created_at', 'status'], 'integer'],
+            [['category_id', 'name', 'summary', 'detail', 'price', 'created_at'], 'required'],
+            [['category_id', 'price', 'is_new', 'views', 'status'], 'integer'],
             [['summary', 'detail', 'discount'], 'string'],
+            [['created_at'], 'safe'],
             [['name'], 'string', 'max' => 64],
             [['image'], 'string', 'max' => 128],
         ];
@@ -52,7 +52,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Category',
+            'category_id' => 'Category ID',
             'name' => 'Name',
             'summary' => 'Summary',
             'detail' => 'Detail',

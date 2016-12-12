@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <br />
             <h4 class="text-center mb5">Already a Member?</h4>
             <p class="text-center">Sign in to your account</p>
-            
+
             <div class="mb30"></div>
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
             <div class="form-group new_class">
-                <?= Html::submitButton('Sign In <i class="fa fa-angle-right ml5"></i>', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Sign In <i class="fa fa-sign-in ml5"></i>', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>

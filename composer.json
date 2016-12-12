@@ -20,6 +20,7 @@
         "yiisoft/yii2-swiftmailer": "*",
         "kartik-v/yii2-widget-select2": "@dev",
         "kartik-v/yii2-widget-datepicker": "@dev",
+        "2amigos/yii2-ckeditor-widget" : "*",
         "rmrevin/yii2-fontawesome": "~2.15"
     },
     "require-dev": {

@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -70,12 +71,14 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
+        $categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'categories' => $categories,
             ]);
         }
     }
@@ -94,13 +97,22 @@ class ProductController extends Controller
             ->one()
         ;
         $model = $this->findModel($id);
+        $categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($_FILES['product_image']['tmp_name']) {
+                $model->image = $_FILES['product_image']['name'];
+                $this->uploadFile();
+            }
+            echo '<pre>', print_r($_FILES), '</pre>';
+            return;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
                 'obj' => json_encode($obj),
+                'categories' => $categories,
             ]);
         }
     }
@@ -132,5 +144,11 @@ class ProductController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    protected function uploadFile()
+    {
+        echo 'Cuong';
+        //
     }
 }
