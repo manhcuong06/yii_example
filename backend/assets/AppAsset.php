@@ -30,6 +30,7 @@ class AppAsset extends AssetBundle
         // 'public/js/jquery-1.11.1.min.js',
         // 'public/js/jquery-migrate-1.2.1.min.js',
         'public/js/bootstrap.min.js',
+        // 'public/js/toggles.min.js',
         // 'public/js/modernizr.min.js',
         // 'public/js/pace.min.js',
         // 'public/js/retina.min.js',

@@ -6,8 +6,12 @@ use yii\bootstrap\ActiveField;
 
 class _ActiveField extends ActiveField
 {
-
     public function init()
+    {
+        parent::init();
+    }
+
+    public function icon($icon)
     {
         $this->template =
             "{label}
@@ -17,12 +21,14 @@ class _ActiveField extends ActiveField
             </div>
             {error}"
         ;
-        parent::init();
+        $this->parts['{icon}'] = $icon;
+        return $this;
     }
 
-    public function icon($content)
+    public function checkboxCustom($class)
     {
-        $this->parts['{icon}'] = $content;
+        $this->options = ['class' => 'ckbox ckbox-'.$class];
+        $this->template = "{input}\n{label}\n{error}\n{hint}";
         return $this;
     }
 }
