@@ -136,9 +136,9 @@ use yii\helpers\Html;
                       <i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu pull-right" role="menu">
-                      <li><a href="#"><i class="glyphicon glyphicon-user"></i> My Profile</a></li>
+                      <li><?= Html::a('<i class="glyphicon glyphicon-user"></i> My Profile', ['/worker/view', 'id' => Yii::$app->user->id]) ?></li>
                       <li><a href="#"><i class="glyphicon glyphicon-star"></i> Activity Log</a></li>
-                      <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
+                      <li><?= Html::a('<i class="glyphicon glyphicon-cog"></i> Account Settings', ['/worker/update', 'id' => Yii::$app->user->id]) ?></li>
                       <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> Help</a></li>
                       <li class="divider"></li>
                       <li>

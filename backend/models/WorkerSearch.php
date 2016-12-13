@@ -41,7 +41,9 @@ class WorkerSearch extends Worker
      */
     public function search($params)
     {
-        $query = Worker::find();
+        $query = Worker::find()
+            ->select(['id', 'name', 'email', 'phone', 'status'])
+        ;
 
         // add conditions that should always apply here
 

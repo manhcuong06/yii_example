@@ -12,6 +12,7 @@ class m130524_201442_init extends Migration
         }
 
         $this->createUser($tableOptions);
+        $this->createWorker($tableOptions);
         $this->createBanner($tableOptions);
         $this->createNewsCategory($tableOptions);
         $this->createNews($tableOptions);
@@ -20,6 +21,42 @@ class m130524_201442_init extends Migration
         $this->createInvoice($tableOptions);
         $this->createInvoiceDetail($tableOptions);
         $this->createSession($tableOptions);
+    }
+
+    private function createWorker($tableOptions)
+    {
+        $this->createTable('worker', [
+            'id'                    => $this->primaryKey(),
+            'name'                  => $this->string(64)->notNull(),
+            'email'                 => $this->string(128)->notNull()->unique(),
+            'phone'                 => $this->string(16)->notNull(),
+            'auth_key'              => $this->string(32)->notNull(),
+            'password_hash'         => $this->string()->notNull(),
+            'password_reset_token'  => $this->string()->unique(),
+            'status'                => $this->smallInteger()->notNull()->defaultValue(10),
+            'created_at'            => $this->integer()->notNull(),
+            'updated_at'            => $this->integer()->notNull(),
+        ], $tableOptions);
+
+        /*
+         * Create initial admin
+         *
+         * @email: nguyencuong945@gmail.com
+         * @pass : Tap1kaADMIN
+         *
+         */
+        $this->insert('worker', [
+            'id'            => 1,
+            'name'          => 'Cuong Nguyen',
+            'email'         => 'nguyencuong945@gmail.com',
+            'phone'         => '0979000000',
+            'password_hash' => '$2y$13$VG.IE8xOshUwPidBlmc/NOMrM3i2CfPaR6EHDPSJb36j9DD9QgHAm',
+            'auth_key'      => 'cei_KonvCVYvaKWoJtLfoBb8mgvNerjb',
+            'created_at'    => 1470897811,
+            'updated_at'    => 1470897811,
+        ]);
+
+        return;
     }
 
     private function createUser($tableOptions)
@@ -33,27 +70,9 @@ class m130524_201442_init extends Migration
             'password_hash'         => $this->string()->notNull(),
             'password_reset_token'  => $this->string()->unique(),
             'status'                => $this->smallInteger()->notNull()->defaultValue(10),
-            'created_at'            => $this->date()->notNull(),
+            'created_at'            => $this->integer()->notNull(),
             'updated_at'            => $this->integer()->notNull(),
         ], $tableOptions);
-
-        /*
-         * Create initial admin
-         *
-         * @email: nguyencuong945@gmail.com
-         * @pass : Tap1kaADMIN
-         *
-         */
-        $this->insert('user', [
-            'id'            => 1,
-            'name'          => 'Cuong Nguyen',
-            'email'         => 'nguyencuong945@gmail.com',
-            'phone'         => '0979000000',
-            'password_hash' => '$2y$13$VG.IE8xOshUwPidBlmc/NOMrM3i2CfPaR6EHDPSJb36j9DD9QgHAm',
-            'auth_key'      => 'cei_KonvCVYvaKWoJtLfoBb8mgvNerjb',
-            'created_at'    => 1470897811,
-            'updated_at'    => 1470897811,
-        ]);
 
         return;
     }
@@ -183,6 +202,7 @@ class m130524_201442_init extends Migration
     public function down()
     {
         $this->dropTable('user');
+        $this->dropTable('worker');
         $this->dropTable('banner');
         $this->dropTable('news_category');
         $this->dropTable('news');
