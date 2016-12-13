@@ -63,7 +63,7 @@ class m130524_201442_init extends Migration
         $this->createTable('banner', [
             'id'                => $this->primaryKey(),
             'name'              => $this->string(64)->notNull(),
-            'image'             => $this->string(128),
+            'image'             => $this->string(128)->notNull(),
             'status'            => $this->smallInteger()->notNull()->defaultValue(1),
             'link'              => $this->string(128),
         ], $tableOptions);
@@ -93,7 +93,7 @@ class m130524_201442_init extends Migration
             'created_at'        => $this->date()->notNull(),
             'views'             => $this->integer()->notNull()->defaultValue(0),
             'status'            => $this->smallInteger()->notNull()->defaultValue(1),
-            'image'             => $this->string(128),
+            'image'             => $this->string(128)->notNull(),
         ], $tableOptions);
 
         return;
@@ -119,7 +119,7 @@ class m130524_201442_init extends Migration
             'summary'           => $this->text()->notNull(),
             'detail'            => $this->text()->notNull(),
             'price'             => $this->integer()->notNull(),
-            'image'             => $this->string(128),
+            'image'             => $this->string(128)->notNull(),
             'is_new'            => $this->boolean()->notNull()->defaultValue(1),
             'views'             => $this->integer()->notNull()->defaultValue(0),
             'created_at'        => $this->date()->notNull(),

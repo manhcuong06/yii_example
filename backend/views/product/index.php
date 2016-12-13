@@ -29,9 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'category_id',
                 'value' => 'category.name',
                 'filter' => Select2::widget([
-                    'name' => 'ProductSearch[category_id]',
-                    'data' => $categories,
-                    'value' => $searchModel->category_id,
+                    'name'    => 'ProductSearch[category_id]',
+                    'data'    => $categories,
+                    'value'   => $searchModel->category_id,
                     'options' => [
                         'placeholder' => '',
                     ],
@@ -50,9 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'image',
                 'format' => 'raw',
                 'value' => function($model, $key, $index) {
-                    return Html::img("/public/img/product/$model->image", [
-                        'alt' => 'image',
-                        'width' => 50,
+                    $path = "public/img/product/$model->image";
+                    return Html::img(file_exists($path) ? $path : '', [
+                        'alt'    => 'image',
+                        'width'  => 50,
                         'height' => 50,
                     ]);
                 },
@@ -70,9 +71,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     return ['class' => $class];
                 },
                 'filter' => Select2::widget([
-                    'name' => 'ProductSearch[status]',
-                    'data' => Yii::$app->params['product_status'],
-                    'value' => $searchModel->status,
+                    'name'    => 'ProductSearch[status]',
+                    'data'    => Yii::$app->params['product_status'],
+                    'value'   => $searchModel->status,
                     'options' => [
                         'placeholder' => '',
                     ],
@@ -93,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('Delete', $url, [
                             'title' => 'Delete',
                             'class' => 'btn btn-danger',
-                            'data-method' => 'post',
+                            'data-method'  => 'post',
                             'data-confirm' => 'Are you sure you want to delete this item?',
                         ]);
                     }

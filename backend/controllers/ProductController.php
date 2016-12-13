@@ -8,6 +8,7 @@ use backend\models\ProductCategory;
 use backend\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
@@ -23,6 +24,16 @@ class ProductController extends Controller
     public function behaviors()
     {
         return [
+            'access'    => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions'   => ['index', 'create', 'update', 'delete', 'view'],
+                        'allow'     => true,
+                        'roles'     => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -73,7 +84,9 @@ class ProductController extends Controller
         $model = new Product();
         $categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->image = $this->uploadImage();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -100,12 +113,10 @@ class ProductController extends Controller
         $categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($_FILES['product_image']['tmp_name']) {
-                $model->image = $_FILES['product_image']['name'];
-                $this->uploadFile();
+            if ($image = $this->uploadImage()) {
+                $this->deleteImage($model->image);
+                $model->image = $image;
             }
-            echo '<pre>', print_r($_FILES), '</pre>';
-            return;
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -125,7 +136,9 @@ class ProductController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $this->deleteImage($model->image);
+        $model->delete();
 
         return $this->redirect(['index']);
     }
@@ -146,9 +159,21 @@ class ProductController extends Controller
         }
     }
 
-    protected function uploadFile()
+    protected function uploadImage()
     {
-        echo 'Cuong';
-        //
+        if ($file = UploadedFile::getInstanceByName('Product[image]')) {
+            $full_name = date('Y-m-d_H-i-s').'_'.$file->name;
+            $file->saveAs('public/img/product/'.$full_name);
+            return $full_name;
+        }
+        return '';
+    }
+
+    protected function deleteImage($image)
+    {
+        $path = 'public/img/product/'.$image ;
+        if (file_exists($path)) {
+            unlink($path);
+        }
     }
 }
