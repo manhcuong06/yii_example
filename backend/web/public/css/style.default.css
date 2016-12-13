@@ -690,7 +690,7 @@ a:focus {
 }
 
 .pageheader .breadcrumb li a {
-    color: #333;
+    /*color: #333;*/
 }
 
 .pageheader .breadcrumb li a:hover,
