@@ -6,7 +6,6 @@ use kartik\date\DatePicker;
 use kartik\select2\Select2;
 use kartik\file\FileInput;
 use dosamigos\ckeditor\CKEditor;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */

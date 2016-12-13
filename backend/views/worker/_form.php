@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use kartik\select2\Select2;
 use kartik\file\FileInput;
-use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Worker */
@@ -46,7 +45,7 @@ use common\models\User;
     <?= ($model->isNewRecord) ? $form->field($model, 'image')->widget(FileInput::classname(), $image_params) : FileInput::widget($image_params)?>
 
     <?= $form->field($model, 'status')->widget(Select2::className(), [
-        'data'  => [User::STATUS_ACTIVE => 'Active', User::STATUS_DELETED => 'Deactive'],
+        'data'  => [0 => 'Active', 10 => 'Deactive'],
         'value' => $model->status,
         'pluginOptions' => [
             'placeholder' => 'Choose Status',
