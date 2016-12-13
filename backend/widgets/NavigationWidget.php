@@ -4,6 +4,7 @@ namespace backend\widgets;
 
 use Yii;
 use yii\base\Widget;
+use backend\models\Worker;
 
 class NavigationWidget extends Widget
 {
@@ -14,6 +15,9 @@ class NavigationWidget extends Widget
 
 	public function run()
 	{
-        return $this->render('navigation');
+		$worker = Worker::findOne(Yii::$app->user->id);
+        return $this->render('navigation', [
+        	'worker' => $worker,
+        ]);
 	}
 }

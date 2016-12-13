@@ -13,8 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
         <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -49,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'image',
                 'format' => 'raw',
                 'value' => function($model, $key, $index) {
-                    $path = "public/img/product/$model->image";
+                    $path = "/public/img/product/$model->image";
                     return Html::img(file_exists($path) ? $path : '', [
                         'alt'    => 'image',
                         'width'  => 50,

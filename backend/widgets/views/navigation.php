@@ -5,7 +5,7 @@ use yii\Url;
 <div class="leftpanel">
     <div class="media profile-left">
         <a class="pull-left profile-thumb" href="profile.html">
-            <img class="img-circle" src="/public/img/photos/cuong-nguyen.jpg" alt="">
+            <img class="img-circle" src="/public/img/photos/<?= $worker->image ?>" alt="">
         </a>
         <div class="media-body">
             <h4 class="media-heading">Cuong Nguyen</h4>
@@ -17,6 +17,8 @@ use yii\Url;
     <ul class="nav nav-pills nav-stacked">
         <li id="site"><?= Html::a('<i class="fa fa-home"></i> <span>Home</span>', '/') ?></li>
         <li id="product"><?= Html::a('<i class="fa fa-laptop"></i> <span>Product</span>', '/product') ?></li>
+        <li id="worker"><?= Html::a('<i class="fa fa-user"></i> <span>Worker</span>', '/worker') ?></li>
+        <li id="user"><?= Html::a('<i class="fa fa-users"></i> <span>User</span>', '/user') ?></li>
 
         <li><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
         <li><a href="/product"><span class="pull-right badge">5</span><i class="fa fa-envelope-o"></i> <span>Messages</span></a></li>

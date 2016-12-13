@@ -12,8 +12,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="worker-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -28,16 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
             'email:email',
             'phone',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            'status',
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'status',
+                'value' => $model->status ? 'Active' : 'Deactive',
+            ],
+            [
+                'attribute' => 'image',
+                'format' => 'raw',
+                'value' => "<img src='/public/img/photos/$model->image' width=100 height=100>",
+            ],
         ],
     ]) ?>
 

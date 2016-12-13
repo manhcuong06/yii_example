@@ -6,7 +6,6 @@ use kartik\date\DatePicker;
 use kartik\select2\Select2;
 use kartik\file\FileInput;
 use dosamigos\ckeditor\CKEditor;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */
@@ -52,10 +51,9 @@ if ($model->isNewRecord) {
     <?= $form->field($model, 'price')->textInput(['type' => 'number'])->icon('dollar') ?>
 
     <?php $image_params = [
-        'id' => 'image123',
         'name' => 'Product[image]',
         'pluginOptions' => [
-            'uploadUrl' => Url::to(['/product/update', 'id' => $model->id]),
+            'uploadUrl' => ['/product/update', 'id' => $model->id],
             'initialPreview' => [
                 ($model->image) ? '/public/img/product/'.$model->image : null,
             ],

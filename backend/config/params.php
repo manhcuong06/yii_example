@@ -5,6 +5,8 @@ return [
     	'site' => 'home',
     	'product' => 'laptop',
     	'news' => '',
+        'worker' => 'user',
+        'user' => 'users',
     ],
     'product_status' => [
     	'Sold out',
