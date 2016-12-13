@@ -85,13 +85,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{update} {delete}',
                 'buttons' => [
                     'update' => function ($url, $model, $key) {
-                        return Html::a('Update', $url, [
+                        return Html::a('<i class="fa fa-pencil"></i>', $url, [
                             'title' => 'Update',
                             'class' => 'btn btn-primary',
                         ]);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('Delete', $url, [
+                        return Html::a('<i class="fa fa-trash-o"></i>', $url, [
                             'title' => 'Delete',
                             'class' => 'btn btn-danger',
                             'data-method'  => 'post',
