@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'id' => 'login-form',
                 'fieldClass' => 'backend\widgets\_ActiveField',
             ]); ?>
-            <?= $form->field($model, 'email')->textInput(['autofocus' => true])->icon('user') ?>
+            <?= $form->field($model, 'email')->textInput(['autofocus' => true])->icon('envelope') ?>
 
             <?= $form->field($model, 'password', [
             ])->passwordInput()->icon('lock') ?>

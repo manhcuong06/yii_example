@@ -34,8 +34,7 @@ class m130524_201442_init extends Migration
             'password_hash'         => $this->string()->notNull(),
             'password_reset_token'  => $this->string()->unique(),
             'status'                => $this->smallInteger()->notNull()->defaultValue(10),
-            'created_at'            => $this->integer()->notNull(),
-            'updated_at'            => $this->integer()->notNull(),
+            'image'                 => $this->string(128)->notNull(),
         ], $tableOptions);
 
         /*
@@ -50,10 +49,9 @@ class m130524_201442_init extends Migration
             'name'          => 'Cuong Nguyen',
             'email'         => 'nguyencuong945@gmail.com',
             'phone'         => '0979000000',
-            'password_hash' => '$2y$13$VG.IE8xOshUwPidBlmc/NOMrM3i2CfPaR6EHDPSJb36j9DD9QgHAm',
+            'password_hash' => '$2y$13$ZdUw.mB4DoV43cnZ3.UulO5dYTCQXs9MWOf7a/3O.D6hWS.P6sIoq',
             'auth_key'      => 'cei_KonvCVYvaKWoJtLfoBb8mgvNerjb',
-            'created_at'    => 1470897811,
-            'updated_at'    => 1470897811,
+            'image'         => 'cuong-nguyen.jpg',
         ]);
 
         return;
@@ -70,8 +68,7 @@ class m130524_201442_init extends Migration
             'password_hash'         => $this->string()->notNull(),
             'password_reset_token'  => $this->string()->unique(),
             'status'                => $this->smallInteger()->notNull()->defaultValue(10),
-            'created_at'            => $this->integer()->notNull(),
-            'updated_at'            => $this->integer()->notNull(),
+            'image'                 => $this->string(128)->notNull(),
         ], $tableOptions);
 
         return;

@@ -26,16 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
             'email:email',
             'phone',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            'status',
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'status',
+                'value' => $model->status ? 'Active' : 'Deactive',
+            ],
+            [
+                'attribute' => 'image',
+                'format' => 'raw',
+                'value' => "<img src='/public/img/photos/$model->image' width=100 height=100>",
+            ],
         ],
     ]) ?>
 

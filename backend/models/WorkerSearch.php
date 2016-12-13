@@ -18,8 +18,8 @@ class WorkerSearch extends Worker
     public function rules()
     {
         return [
-            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'email', 'phone', 'auth_key', 'password_hash', 'password_reset_token'], 'safe'],
+            [['id', 'status'], 'integer'],
+            [['name', 'email', 'phone', 'image', 'auth_key', 'password_hash', 'password_reset_token'], 'safe'],
         ];
     }
 
@@ -42,7 +42,7 @@ class WorkerSearch extends Worker
     public function search($params)
     {
         $query = Worker::find()
-            ->select(['id', 'name', 'email', 'phone', 'status'])
+            ->select(['id', 'name', 'email', 'phone', 'status', 'image'])
         ;
 
         // add conditions that should always apply here
@@ -63,8 +63,6 @@ class WorkerSearch extends Worker
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

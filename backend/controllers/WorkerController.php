@@ -8,6 +8,7 @@ use backend\models\WorkerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * WorkerController implements the CRUD actions for Worker model.
@@ -65,7 +66,13 @@ class WorkerController extends Controller
     {
         $model = new Worker();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->image = $this->uploadImage();
+            $model->setPassword(Yii::$app->request->post('Worker')['password']);
+            $model->generateAuthKey();
+            if (!$model->save()) {
+               //
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -84,7 +91,18 @@ class WorkerController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($password = Yii::$app->request->post('Worker')['password']) {
+                $model->setPassword($password);
+                $model->generateAuthKey();
+            }
+            if ($image = $this->uploadImage()) {
+                $this->deleteImage($model->image);
+                $model->image = $image;
+            }
+            if (!$model->save()) {
+                //
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -101,7 +119,9 @@ class WorkerController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $this->deleteImage($model->image);
+        $model->delete();
 
         return $this->redirect(['index']);
     }
@@ -119,6 +139,24 @@ class WorkerController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function uploadImage()
+    {
+        if ($file = UploadedFile::getInstanceByName('Worker[image]')) {
+            $full_name = date('Y-m-d_H-i-s').'_'.$file->name;
+            $file->saveAs('public/img/photos/'.$full_name);
+            return $full_name;
+        }
+        return '';
+    }
+
+    protected function deleteImage($image)
+    {
+        $path = 'public/img/photos/'.$image ;
+        if (file_exists($path)) {
+            unlink($path);
         }
     }
 }

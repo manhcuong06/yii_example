@@ -14,12 +14,12 @@ use Yii;
  * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
+ * @property string $image
  * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
  */
 class Worker extends \yii\db\ActiveRecord
 {
+    public $password;
     /**
      * @inheritdoc
      */
@@ -34,8 +34,8 @@ class Worker extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email', 'phone', 'auth_key', 'password_hash', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'email', 'phone', 'auth_key', 'password_hash', 'image'], 'required'],
+            [['status',], 'integer'],
             [['name'], 'string', 'max' => 64],
             [['email'], 'string', 'max' => 128],
             [['phone'], 'string', 'max' => 16],
@@ -60,8 +60,25 @@ class Worker extends \yii\db\ActiveRecord
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
             'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'image' => 'Image',
         ];
+    }
+
+    /**
+     * Generates password hash from password and sets it to the model
+     *
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+    }
+
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
     }
 }
