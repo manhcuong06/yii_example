@@ -6,4 +6,8 @@ return [
     	'product' => 'laptop',
     	'news' => '',
     ],
+    'product_status' => [
+    	'Sold out',
+    	'In stock',
+    ],
 ];

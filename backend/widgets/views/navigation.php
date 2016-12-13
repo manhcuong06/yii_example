@@ -15,8 +15,8 @@ use yii\Url;
 
     <h5 class="leftpanel-title">Navigation</h5>
     <ul class="nav nav-pills nav-stacked">
-        <li id="site" class="active"><?= Html::a('<i class="fa fa-home"></i> <span>Home</span>', '/') ?></li>
-        <li id="product"><?= Html::a('<i class="glyphicon glyphicon-phone"></i> <span>Product</span>', '/product') ?></li>
+        <li id="site"><?= Html::a('<i class="fa fa-home"></i> <span>Home</span>', '/') ?></li>
+        <li id="product"><?= Html::a('<i class="fa fa-laptop"></i> <span>Product</span>', '/product') ?></li>
 
         <li><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
         <li><a href="/product"><span class="pull-right badge">5</span><i class="fa fa-envelope-o"></i> <span>Messages</span></a></li>
@@ -69,8 +69,6 @@ use yii\Url;
     </ul>
 </div>
 <script>
-    var old_active_li = $('ul.nav.nav-pills.nav-stacked li.active');
-    var new_active_li = $('ul.nav.nav-pills.nav-stacked li#' + <?= '\''.Yii::$app->controller->id.'\'' ?>);
-    old_active_li.removeClass('active');
-    new_active_li.addClass('active');
+    var active_li = $('ul.nav.nav-pills.nav-stacked li#' + <?= '\''.Yii::$app->controller->id.'\'' ?>);
+    active_li.addClass('active');
 </script>
