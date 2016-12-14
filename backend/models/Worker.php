@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use common\models\User;
 
 /**
  * This is the model class for table "worker".
@@ -16,6 +17,8 @@ use Yii;
  * @property string $password_reset_token
  * @property string $image
  * @property integer $status
+ * @property integer $created_at
+ * @property integer $updated_at
  */
 class Worker extends \yii\db\ActiveRecord
 {
@@ -34,13 +37,13 @@ class Worker extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email', 'phone', 'auth_key', 'password_hash', 'image'], 'required'],
-            [['status',], 'integer'],
+            [['name', 'email'], 'required'],
+            [['status', 'created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 64],
             [['email'], 'string', 'max' => 128],
             [['phone'], 'string', 'max' => 16],
             [['auth_key'], 'string', 'max' => 32],
-            [['password_hash', 'password_reset_token'], 'string', 'max' => 255],
+            [['password_hash', 'password_reset_token', 'auth_key'], 'string', 'max' => 255],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
         ];
@@ -61,24 +64,37 @@ class Worker extends \yii\db\ActiveRecord
             'password_reset_token' => 'Password Reset Token',
             'status' => 'Status',
             'image' => 'Image',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 
-    /**
-     * Generates password hash from password and sets it to the model
-     *
-     * @param string $password
-     */
-    public function setPassword($password)
-    {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
-    }
 
-    /**
-     * Generates "remember me" authentication key
-     */
-    public function generateAuthKey()
+    public function savePasswordAndImage($password = null, $image = null)
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        // validate
+        if (!$this->validate()) {
+            return null;
+        }
+
+        // set parameter
+        $user = $this->id ? User::findIdentity($this->id) : new User();
+        $user->name  = $this->name;
+        $user->email = $this->email;
+        $user->phone = $this->phone;
+        if (!$this->id || $password) {
+            $user->setPassword($password);
+            $user->generateAuthKey();
+        }
+        if ($image) {
+            $user->image = $image;
+        }
+
+        // save
+        if (!$user->save()) {
+            return null;
+        }
+
+        return $user;
     }
 }

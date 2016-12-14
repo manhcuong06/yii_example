@@ -5,10 +5,12 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Worker;
 use backend\models\WorkerSearch;
+use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
 
 /**
  * WorkerController implements the CRUD actions for Worker model.
@@ -21,10 +23,21 @@ class WorkerController extends Controller
     public function behaviors()
     {
         return [
+            'access'    => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions'   => ['index', 'view', 'update', 'create', 'delete', 'confirm'],
+                        'allow'     => true,
+                        'roles'     => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete'  => ['POST'],
+                    'confirm' => ['POST'],
                 ],
             ],
         ];
@@ -67,18 +80,15 @@ class WorkerController extends Controller
         $model = new Worker();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->image = $this->uploadImage();
-            $model->setPassword(Yii::$app->request->post('Worker')['password']);
-            $model->generateAuthKey();
-            if (!$model->save()) {
-               //
+            $password = Yii::$app->request->post('Worker')['password'];
+            $image = $this->uploadImage();
+            if ($result = $model->savePasswordAndImage($password, $image)) {
+                return $this->redirect(['view', 'id' => $result->id]);
             }
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -92,23 +102,17 @@ class WorkerController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($password = Yii::$app->request->post('Worker')['password']) {
-                $model->setPassword($password);
-                $model->generateAuthKey();
-            }
+            $password = Yii::$app->request->post('Worker')['password'];
             if ($image = $this->uploadImage()) {
                 $this->deleteImage($model->image);
-                $model->image = $image;
             }
-            if (!$model->save()) {
-                //
+            if ($result = $model->savePasswordAndImage($password, $image)) {
+                return $this->redirect(['view', 'id' => $result->id]);
             }
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -122,6 +126,15 @@ class WorkerController extends Controller
         $model = $this->findModel($id);
         $this->deleteImage($model->image);
         $model->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionConfirm($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = User::STATUS_ACTIVE;
+        $model->save();
 
         return $this->redirect(['index']);
     }
@@ -154,9 +167,11 @@ class WorkerController extends Controller
 
     protected function deleteImage($image)
     {
-        $path = 'public/img/photos/'.$image ;
-        if (file_exists($path)) {
-            unlink($path);
+        if ($image) {
+            $path = 'public/img/photos/'.$image ;
+            if (file_exists($path)) {
+                unlink($path);
+            }
         }
     }
 }

@@ -63,10 +63,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{confirm} {update} {delete}',
                 'buttons' => [
                     'confirm' => function ($url, $model, $key) {
-                        if ($model->status) {
+                        if (!$model->status) {
                             return Html::a('<i class="fa fa-check"></i>', $url, [
                                 'title' => 'Confirm',
                                 'class' => 'btn btn-success',
+                                'data-method'  => 'post',
+                                'data-confirm' => 'Are you sure you want to confirm this item?',
                             ]);
                         }
                     },
@@ -77,12 +79,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-trash-o"></i>', $url, [
-                            'title' => 'Delete',
-                            'class' => 'btn btn-danger',
-                            'data-method'  => 'post',
-                            'data-confirm' => 'Are you sure you want to delete this item?',
-                        ]);
+                        if ($model->id != Yii::$app->user->id) {
+                            return Html::a('<i class="fa fa-trash-o"></i>', $url, [
+                                'title' => 'Delete',
+                                'class' => 'btn btn-danger',
+                                'data-method'  => 'post',
+                                'data-confirm' => 'Are you sure you want to delete this item?',
+                            ]);
+                        }
                     }
                 ],
             ],
