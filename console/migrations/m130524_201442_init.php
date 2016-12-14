@@ -29,12 +29,14 @@ class m130524_201442_init extends Migration
             'id'                    => $this->primaryKey(),
             'name'                  => $this->string(64)->notNull(),
             'email'                 => $this->string(128)->notNull()->unique(),
-            'phone'                 => $this->string(16)->notNull(),
+            'phone'                 => $this->string(16),
             'auth_key'              => $this->string(32)->notNull(),
             'password_hash'         => $this->string()->notNull(),
             'password_reset_token'  => $this->string()->unique(),
             'status'                => $this->smallInteger()->notNull()->defaultValue(10),
-            'image'                 => $this->string(128)->notNull(),
+            'image'                 => $this->string(128),
+            'created_at'            => $this->integer()->notNull(),
+            'updated_at'            => $this->integer()->notNull(),
         ], $tableOptions);
 
         /*
@@ -46,12 +48,14 @@ class m130524_201442_init extends Migration
          */
         $this->insert('worker', [
             'id'            => 1,
-            'name'          => 'Cuong Nguyen',
-            'email'         => 'nguyencuong945@gmail.com',
+            'name'          => 'Admin',
+            'email'         => 'admin@gmail.com',
             'phone'         => '0979000000',
             'password_hash' => '$2y$13$ZdUw.mB4DoV43cnZ3.UulO5dYTCQXs9MWOf7a/3O.D6hWS.P6sIoq',
             'auth_key'      => 'cei_KonvCVYvaKWoJtLfoBb8mgvNerjb',
-            'image'         => 'cuong-nguyen.jpg',
+            'image'         => 'user1.png',
+            'created_at'    => 1470897811,
+            'updated_at'    => 1470897811,
         ]);
 
         return;
@@ -63,12 +67,14 @@ class m130524_201442_init extends Migration
             'id'                    => $this->primaryKey(),
             'name'                  => $this->string(64)->notNull(),
             'email'                 => $this->string(128)->notNull()->unique(),
-            'phone'                 => $this->string(16)->notNull(),
+            'phone'                 => $this->string(16),
             'auth_key'              => $this->string(32)->notNull(),
             'password_hash'         => $this->string()->notNull(),
             'password_reset_token'  => $this->string()->unique(),
             'status'                => $this->smallInteger()->notNull()->defaultValue(10),
-            'image'                 => $this->string(128)->notNull(),
+            'image'                 => $this->string(128),
+            'created_at'            => $this->integer()->notNull(),
+            'updated_at'            => $this->integer()->notNull(),
         ], $tableOptions);
 
         return;

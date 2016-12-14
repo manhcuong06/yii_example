@@ -8,7 +8,7 @@ use yii\Url;
             <img class="img-circle" src="/public/img/photos/<?= $worker->image ?>" alt="">
         </a>
         <div class="media-body">
-            <h4 class="media-heading">Cuong Nguyen</h4>
+            <h4 class="media-heading"><?= $worker->name ?></h4>
             <small class="text-muted">Code Lover</small>
         </div>
     </div>

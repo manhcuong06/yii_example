@@ -5,6 +5,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use backend\models\SignupForm;
 use common\models\LoginForm;
 use common\models\User;
 
@@ -23,7 +24,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'signup', 'error'],
                         'allow' => true,
                     ],
                     [
@@ -95,5 +96,27 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    /**
+     * Signup action.
+     *
+     * @return string
+     */
+    public function actionSignup()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Create account successfully. Please wait for confimation.');
+            return $this->goHome();
+        } else {
+            return $this->render('signup', [
+                'model' => $model,
+            ]);
+        }
     }
 }

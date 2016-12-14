@@ -30,16 +30,19 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'password', [
             ])->passwordInput()->icon('lock') ?>
 
-            <?= $form->field($model, 'rememberMe')->checkbox() ?>
-
-            <div class="form-group new_class">
-                <?= Html::submitButton('Sign In <i class="fa fa-sign-in ml5"></i>', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
+            <div class="clearfix">
+                <div class="pull-left">
+                    <?= $form->field($model, 'rememberMe')->checkbox()->checkboxCustom('primary') ?>
+                </div>
+                <div class="pull-right">
+                    <?= Html::submitButton('Sign In <i class="fa fa-sign-in ml5"></i>', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
+                </div>
             </div>
 
             <?php ActiveForm::end(); ?>
         </div>
         <div class="panel-footer">
-            <?= Html::a('Not yet a Member? Create Account Now', '#', [
+            <?= Html::a('Not yet a Member? Create Account Now', 'signup', [
                 'class' => 'btn btn-primary btn-block',
             ]) ?>
         </div>
