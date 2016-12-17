@@ -79,9 +79,10 @@ class Worker extends \yii\db\ActiveRecord
 
         // set parameter
         $user = $this->id ? User::findIdentity($this->id) : new User();
-        $user->name  = $this->name;
-        $user->email = $this->email;
-        $user->phone = $this->phone;
+        $user->name   = $this->name;
+        $user->email  = $this->email;
+        $user->phone  = $this->phone;
+        $user->status = $this->status;
         if (!$this->id || $password) {
             $user->setPassword($password);
             $user->generateAuthKey();

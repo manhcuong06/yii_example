@@ -32,7 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model, 'name')->textInput(['autofocus' => true])->icon('user') ?>
                 </div>
                 <div class="col-sm-6">
-                    <?= $form->field($model, 'email')->textInput(['autofocus' => true])->icon('envelope') ?>
+                    <?= $form->field($model, 'phone')->textInput()->icon('phone') ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= $form->field($model, 'email')->textInput()->icon('envelope') ?>
                 </div>
             </div>
             <div class="row">

@@ -23,7 +23,7 @@ class SignupForm extends Model
     {
         return [
             [['name', 'email', 'password', 'password_confirmation'], 'required'],
-            [['name', 'email'], 'trim'],
+            [['name', 'email', 'phone'], 'trim'],
             ['name', 'string', 'min' => 2, 'max' => 255],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
@@ -47,6 +47,8 @@ class SignupForm extends Model
         $user = new User();
         $user->name   = $this->name;
         $user->email  = $this->email;
+        $user->phone  = $this->phone;
+        $user->image  = 'user1.png';
         $user->status = User::STATUS_DELETED;
         $user->setPassword($this->password);
         $user->generateAuthKey();
