@@ -24,7 +24,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'signup', 'error'],
+                        'actions' => ['login', 'signup', 'error', 'auth'],
                         'allow' => true,
                     ],
                     [
@@ -52,7 +52,48 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'successCallback'],
+                'successUrl' => '/',
+            ],
         ];
+    }
+
+    public function successCallback($client)
+    {
+        $attributes = $client->getUserAttributes();
+        switch (Yii::$app->request->get('authclient')) {
+            case 'google':
+                $email = $attributes['emails'][0]['value'];
+                $name  = $attributes['displayName'];
+                break;
+            case 'linkedin':
+                $email = $attributes['email'];
+                $name  = $attributes['first_name'].' '.$attributes['last_name'];
+                break;
+            default:
+                $email = $attributes['email'];
+                $name  = $attributes['name'];
+                break;
+        }
+        $identity = User::findByEmail($email);
+        if (isset($identity)) {
+            Yii::$app->user->login($identity);
+        }
+        else {
+            $params['SignupForm'] = [
+                'name'     => $name,
+                'phone'    => 0,
+                'email'    => $email,
+                'password' => $attributes['id'],
+                'password_confirmation' => $attributes['id'],
+            ];
+            $model = new SignupForm();
+            $model->load($params);
+            $user = $model->signup();
+            Yii::$app->session->setFlash('success', 'Create account successfully. Please wait for confimation.');
+        }
     }
 
     /**

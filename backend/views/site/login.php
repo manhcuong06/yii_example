@@ -6,9 +6,10 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\authclient\widgets\AuthChoice;
 
 $this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('/public/css/bootstrap-social.css');
 ?>
 <div class="site-login">
     <div class="panel panel-signin">
@@ -40,6 +41,14 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <?php ActiveForm::end(); ?>
+
+            <?php $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['site/auth'],]); ?>
+            <ul>
+            <?php foreach ($authAuthChoice->getClients() as $client) { ?>
+                <li><?= $authAuthChoice->clientLink($client, '<span class="fa fa-'.$client->getName().'"></span> Sign in with '.$client->getTitle(), ['class' => 'btn btn-block btn-social btn-'.$client->getName(),]) ?></li>
+            <?php } ?>
+            </ul>
+            <?php AuthChoice::end(); ?>
         </div>
         <div class="panel-footer">
             <?= Html::a('Not yet a Member? Create Account Now', 'signup', [

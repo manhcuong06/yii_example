@@ -22,6 +22,7 @@
         "kartik-v/yii2-widget-datepicker": "@dev",
         "kartik-v/yii2-widget-fileinput": "@dev",
         "2amigos/yii2-ckeditor-widget" : "*",
+        "yiisoft/yii2-authclient": "~2.1.0",
         "rmrevin/yii2-fontawesome": "~2.15"
     },
     "require-dev": {
