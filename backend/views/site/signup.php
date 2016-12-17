@@ -50,10 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="clearfix">
                 <div class="pull-left">
-                    <div class="ckbox ckbox-primary mt5">
-                        <input type="checkbox" id="agree" value="1">
-                        <label for="agree">I agree with <a href="#">Terms and Conditions</a></label>
-                    </div>
+                    <?= $form->field($model, 'agreement')->checkbox()->label('I agree with '.Html::a('Terms and Conditions', '#'))->checkboxCustom('primary') ?>
                 </div>
                 <div class="pull-right">
                     <?= Html::submitButton('Create New Account <i class="fa fa-angle-right ml5"></i>', ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>

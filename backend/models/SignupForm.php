@@ -15,6 +15,7 @@ class SignupForm extends Model
     public $password;
     public $password_confirmation;
     public $phone;
+    public $agreement;
 
     /**
      * @inheritdoc
@@ -30,6 +31,7 @@ class SignupForm extends Model
             ['email', 'unique', 'targetClass' => '\common\models\User'],
             ['password', 'string', 'min' => 6],
             ['password_confirmation', 'compare', 'compareAttribute' => 'password'],
+            ['agreement', 'integer', 'min' => 1, 'tooSmall' => 'You have to agree with the Terms and Conditions.'],
         ];
     }
 

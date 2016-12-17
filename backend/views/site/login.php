@@ -28,8 +28,7 @@ $this->registerCssFile('/public/css/bootstrap-social.css');
             ]); ?>
             <?= $form->field($model, 'email')->textInput(['autofocus' => true])->icon('envelope') ?>
 
-            <?= $form->field($model, 'password', [
-            ])->passwordInput()->icon('lock') ?>
+            <?= $form->field($model, 'password')->passwordInput()->icon('lock') ?>
 
             <div class="clearfix">
                 <div class="pull-left">
