@@ -58,7 +58,7 @@ PREPARE BEFORE INSTALL
 
 ```
 Step 1: Install git
-    Download git at [git-scm](https://git-scm.com/).
+    Download git at <a href="https://git-scm.com/">git-scm</a>
     Install git
     Usage: right click at a folder and select "Git Bash Here"
 Step 2: Update latest version for composer
