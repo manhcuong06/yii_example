@@ -147,7 +147,7 @@ Step 1: Edit hosts at "C:\Windows\System32\drivers\etc\hosts"
 Step 2: Edit httpd.conf at "C:\wamp\bin\apache\apache2.4.9\conf\httpd.conf", line 514
     From: #Include conf/extra/httpd-vhosts.conf
     To:    Include conf/extra/httpd-vhosts.conf
-Step 3: Edit httpd-vhosts.conf at "C:\wamp\bin\apache\apache2.4.9\conf\extra\httpd-vhosts.conf", add these line at the end of file
+Step 3: Edit httpd-vhosts.conf at "C:\wamp\bin\apache\apache2.4.9\conf\extra\httpd-vhosts.conf", add these lines at the end of file
     <VirtualHost *:81>
         ServerName localhost
         DocumentRoot c:\wamp\www
@@ -174,9 +174,11 @@ Step 3: Edit httpd-vhosts.conf at "C:\wamp\bin\apache\apache2.4.9\conf\extra\htt
 Step 4: Restart your server (WAMP)
 ```
 
-Don't be hesitate to contact me if you find a bug, or you want to get some helps. Thank you.
--------------------
+THANK YOU
+===============================
 
-```
+Don't be hesitate to contact me if you find a bug, or you want to get some helps.
 
-```
+[Facebook](https://www.facebook.com/el.nino.505960)
+[Google](nguyencuong945@gmail.com)
+[Github](https://github.com/manhcuong06)
