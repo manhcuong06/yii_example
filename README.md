@@ -53,10 +53,13 @@ tests                    contains various tests for the advanced application
     codeception/         contains tests developed with Codeception PHP Testing Framework
 ```
 
-PREPARE BEFORE INSTALL
+PREPARE BEFORE INSTALL [git-scm](https://git-scm.com/)
+[git-scm](https://git-scm.com/)
 -------------------
+[git-scm](https://git-scm.com/)
 
 ```
+[git-scm](https://git-scm.com/)
 Step 1: Install git
     Download git at <a href="https://git-scm.com/">git-scm</a>
     Install git
