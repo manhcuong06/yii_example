@@ -53,21 +53,18 @@ tests                    contains various tests for the advanced application
     codeception/         contains tests developed with Codeception PHP Testing Framework
 ```
 
-PREPARE BEFORE INSTALL [git-scm](https://git-scm.com/)
-[git-scm](https://git-scm.com/)
+PREPARE BEFORE INSTALL
 -------------------
-[git-scm](https://git-scm.com/)
-
+[Download git-scm](https://git-scm.com/downloads)
 ```
-[git-scm](https://git-scm.com/)
-Step 1: Install git
-    Download git at <a href="https://git-scm.com/">git-scm</a>
+Step 1: Install git-scm
+    Download git
     Install git
     Usage: right click at a folder and select "Git Bash Here"
 Step 2: Update latest version for composer
-    composer self-update
+$   composer self-update
 Step 3: Install asset plugin
-    composer global require "fxp/composer-asset-plugin:^1.2.0"
+$   composer global require "fxp/composer-asset-plugin:^1.2.0"
 ```
 
 INSTALL PROJECT
@@ -75,25 +72,27 @@ INSTALL PROJECT
 
 ```
 Step 1: Clone
-    git clone https://github.com/manhcuong06/yii_example.git
-    cd yii_example/
+$   git clone https://github.com/manhcuong06/yii_example.git
+$   cd yii_example/
 Step 2: Install composer
-    composer install
+$   composer install
 Step 3: Update composer
-    composer update
+$   composer update
 ```
 
 CONFIG
 -------------------
-
+[Bachend main-local](backend/config/main-local.php)
+[Common main-local](common/config/main-local.php)
+[Refer an authclient example](http://www.yiiframework.com/doc-2.0/yii-authclient-clients-facebook.html)
 ```
-Step 1: Config social login in backend [main-local](backend/config/main-local.php)
+Step 1: Config social login in backend
     'authClientCollection' => [
         'class' => 'yii\authclient\Collection',
         'clients' => [
         ],
     ],
-Step 1.5: Add clients which you want to use. [Refer an example](http://www.yiiframework.com/doc-2.0/yii-authclient-clients-facebook.html)
+Step 1.5: Add clients which you want to use
     'authClientCollection' => [
         'class' => 'yii\authclient\Collection',
         'clients' => [
@@ -128,12 +127,12 @@ Step 1.5: Add clients which you want to use. [Refer an example](http://www.yiifr
         ],
     ],
 Step 2: Create a database (example: YOUR_DATABASE_NAME)
-Step 3: Config mysql in common [main-local](common/config/main-local.php)
+Step 3: Config mysql in common
     'dsn' => 'mysql:host=localhost;dbname=YOUR_DATABASE_NAME',
     'username' => 'YOUR_USERNAME',
     'password' => 'YOUR_PASSWORD',
 Step 4: Run migration
-    ./yii migrate
+$   ./yii migrate
     Now you can login backend with default account:
         Email: admin@gmail.com
         Password: qweqwe
@@ -174,4 +173,5 @@ Step 3: Edit httpd-vhosts.conf at C:\wamp\bin\apache\apache2.4.9\conf\extra, add
             AllowOverride All
         </Directory>
     </VirtualHost>
+Step 4: Restart your server (WAMP)
 ```
