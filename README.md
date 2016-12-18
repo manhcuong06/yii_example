@@ -53,7 +53,7 @@ tests                    contains various tests for the advanced application
     codeception/         contains tests developed with Codeception PHP Testing Framework
 ```
 
-PREPARE BEFORE INSTALL
+PREPARATION BEFORE INSTALL
 -------------------
 [Download git-scm](https://git-scm.com/downloads)
 ```
@@ -71,22 +71,20 @@ INSTALL PROJECT
 -------------------
 
 ```
-Step 1: Clone
+Step 1: Clone project
 $   git clone https://github.com/manhcuong06/yii_example.git
 $   cd yii_example/
-Step 2: Install composer
+Step 2: Install default pakages of Yii
 $   composer install
-Step 3: Update composer
+Step 3: Update pakages, libraries (in composer.json)
 $   composer update
 ```
 
-CONFIG
+CONFIGURATIONS
 -------------------
-[Bachend main-local](backend/config/main-local.php)
-[Common main-local](common/config/main-local.php)
 [Refer an authclient example](http://www.yiiframework.com/doc-2.0/yii-authclient-clients-facebook.html)
 ```
-Step 1: Config social login in backend
+Step 1: Config social login in "backend/config/main-local.php"
     'authClientCollection' => [
         'class' => 'yii\authclient\Collection',
         'clients' => [
@@ -127,7 +125,7 @@ Step 1.5: Add clients which you want to use
         ],
     ],
 Step 2: Create a database (example: YOUR_DATABASE_NAME)
-Step 3: Config mysql in common
+Step 3: Config mysql in "common/config/main-local.php"
     'dsn' => 'mysql:host=localhost;dbname=YOUR_DATABASE_NAME',
     'username' => 'YOUR_USERNAME',
     'password' => 'YOUR_PASSWORD',
@@ -142,14 +140,14 @@ CREATE VIRTUAL HOST (WINDOW)
 -------------------
 
 ```
-Step 1: Edit hosts at C:\Windows\System32\drivers\etc\hosts
+Step 1: Edit hosts at "C:\Windows\System32\drivers\etc\hosts"
     127.0.0.1       localhost
     127.0.0.1       YOUR_FRONTEND_DOMAIN (example: yii.front.cuong.dev)
     127.0.0.1       YOUR_BACKEND_DOMAIN (example: yii.back.cuong.dev)
-Step 2: Edit httpd.conf at C:\wamp\bin\apache\apache2.4.9\conf\httpd.conf, line 514
+Step 2: Edit httpd.conf at "C:\wamp\bin\apache\apache2.4.9\conf\httpd.conf", line 514
     From: #Include conf/extra/httpd-vhosts.conf
     To:    Include conf/extra/httpd-vhosts.conf
-Step 3: Edit httpd-vhosts.conf at C:\wamp\bin\apache\apache2.4.9\conf\extra, add these line at the end of file
+Step 3: Edit httpd-vhosts.conf at "C:\wamp\bin\apache\apache2.4.9\conf\extra\httpd-vhosts.conf", add these line at the end of file
     <VirtualHost *:81>
         ServerName localhost
         DocumentRoot c:\wamp\www
@@ -174,4 +172,11 @@ Step 3: Edit httpd-vhosts.conf at C:\wamp\bin\apache\apache2.4.9\conf\extra, add
         </Directory>
     </VirtualHost>
 Step 4: Restart your server (WAMP)
+```
+
+Don't be hesitate to contact me if you find a bug, or you want to get some helps. Thank you.
+-------------------
+
+```
+
 ```
