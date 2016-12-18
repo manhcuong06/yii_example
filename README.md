@@ -157,7 +157,7 @@ Step 3: Edit httpd-vhosts.conf at "C:\wamp\bin\apache\apache2.4.9\conf\extra\htt
     </VirtualHost>
 
     <VirtualHost *:81>
-        ServerName yii.front.cuong.dev
+        ServerName YOUR_FRONTEND_DOMAIN
         DocumentRoot c:\wamp\www\yii_example\frontend\web
         <Directory "c:\wamp\www\yii_example\frontend\web/">
             AllowOverride All
@@ -165,13 +165,16 @@ Step 3: Edit httpd-vhosts.conf at "C:\wamp\bin\apache\apache2.4.9\conf\extra\htt
     </VirtualHost>
 
     <VirtualHost *:81>
-        ServerName yii.back.cuong.dev
+        ServerName YOUR_BACKEND_DOMAIN
         DocumentRoot c:\wamp\www\yii_example\backend\web
         <Directory "c:\wamp\www\yii_example\backend\web/">
             AllowOverride All
         </Directory>
     </VirtualHost>
 Step 4: Restart your server (WAMP)
+    Now you can access your local app via
+        frontend: YOUR_FRONTEND_DOMAIN
+        backend:  YOUR_BACKEND_DOMAIN
 ```
 
 THANK YOU
