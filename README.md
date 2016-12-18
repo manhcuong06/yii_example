@@ -179,7 +179,6 @@ THANK YOU
 
 Don't be hesitate to contact me if you find a bug, or you want to get some helps.
 
-[Facebook](https://www.facebook.com/el.nino.505960)<br>
-[Google](https://plus.google.com/u/0/108898824663504067912)<br>
-<a href="mailto:nguyencuong945@gmail.com">Email</a><br>
-[Github](https://github.com/manhcuong06)
+Facebook: [El Nino](https://www.facebook.com/el.nino.505960)<br>
+Email: <a href="mailto:nguyencuong945@gmail.com">nguyencuong945@gmail.com</a><br>
+Github: [manhcuong06](https://github.com/manhcuong06)
