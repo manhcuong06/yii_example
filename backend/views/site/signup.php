@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
         <div class="panel-footer">
-            <?= Html::a('Already a Member? Log In', 'login', [
+            <?= Html::a('Already a Member? Sign In', 'login', [
                 'class' => 'btn btn-primary btn-block',
             ]) ?>
         </div>
