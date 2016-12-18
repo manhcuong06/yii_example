@@ -10,7 +10,7 @@ is a separate Yii application.
 The template is designed to work in a team development environment. It supports
 deploying the application in different environments.
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+Full Yii 2 Documentation is at [The Definitive Guide to Yii 2.0 ¶](http://www.yiiframework.com/doc-2.0/guide-index.html).
 
 [![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-advanced/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
 [![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-advanced/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
@@ -52,3 +52,136 @@ environments/            contains environment-based overrides
 tests                    contains various tests for the advanced application
     codeception/         contains tests developed with Codeception PHP Testing Framework
 ```
+
+PREPARATION BEFORE INSTALL
+-------------------
+[Download git-scm](https://git-scm.com/downloads)
+```
+Step 1: Install git-scm
+    Download git
+    Install git
+    Usage: right click at a folder and select "Git Bash Here"
+Step 2: Update latest version for composer
+$   composer self-update
+Step 3: Install asset plugin
+$   composer global require "fxp/composer-asset-plugin:^1.2.0"
+```
+
+INSTALL PROJECT
+-------------------
+
+```
+Step 1: Clone project
+$   git clone https://github.com/manhcuong06/yii_example.git
+$   cd yii_example/
+Step 2: Install default pakages of Yii
+$   composer install
+Step 3: Update pakages, libraries (in composer.json)
+$   composer update
+```
+
+CONFIGURATIONS
+-------------------
+[Refer an authclient example](http://www.yiiframework.com/doc-2.0/yii-authclient-clients-facebook.html)
+```
+Step 1: Config social login in "backend/config/main-local.php"
+    'authClientCollection' => [
+        'class' => 'yii\authclient\Collection',
+        'clients' => [
+        ],
+    ],
+Step 1.5: Add clients which you want to use
+    'authClientCollection' => [
+        'class' => 'yii\authclient\Collection',
+        'clients' => [
+            'google' => [
+                'class' => 'yii\authclient\clients\Google',
+                'clientId' => 'YOUR_GOOGLE_ID',
+                'clientSecret' => 'YOUR_GOOGLE_SECRET',
+            ],
+            'facebook' => [
+                'class' => 'yii\authclient\clients\Facebook',
+                'clientId' => 'YOUR_FACEBOOK_ID',
+                'clientSecret' => 'YOUR_FACEBOOK_SECRET',
+            ],
+            'twitter' => [
+                'class' => 'yii\authclient\clients\Twitter',
+                'attributeParams' => [
+                    'include_email' => 'true'
+                ],
+                'consumerKey' => 'YOUR_TWITTER_KEY',
+                'consumerSecret' => 'YOUR_TWITTER_SECRET',
+            ],
+            'github' => [
+                'class' => 'yii\authclient\clients\GitHub',
+                'clientId' => 'YOUR_GITHUB_ID',
+                'clientSecret' => 'YOUR_GITHUB_SECRET',
+            ],
+            'linkedin' => [
+                'class' => 'yii\authclient\clients\LinkedIn',
+                'clientId' => 'YOUR_LINKEDIN_ID',
+                'clientSecret' => 'YOUR_LINKEDIN_SECRET',
+            ],
+        ],
+    ],
+Step 2: Create a database (example: YOUR_DATABASE_NAME)
+Step 3: Config mysql in "common/config/main-local.php"
+    'dsn' => 'mysql:host=localhost;dbname=YOUR_DATABASE_NAME',
+    'username' => 'YOUR_USERNAME',
+    'password' => 'YOUR_PASSWORD',
+Step 4: Run migration
+$   ./yii migrate
+    Now you can login backend with default account:
+        Email: admin@gmail.com
+        Password: qweqwe
+```
+
+CREATE VIRTUAL HOST (WINDOW)
+-------------------
+
+```
+Step 1: Edit hosts at "C:\Windows\System32\drivers\etc\hosts"
+    127.0.0.1       localhost
+    127.0.0.1       YOUR_FRONTEND_DOMAIN (example: yii.front.cuong.dev)
+    127.0.0.1       YOUR_BACKEND_DOMAIN (example: yii.back.cuong.dev)
+Step 2: Edit httpd.conf at "C:\wamp\bin\apache\apache2.4.9\conf\httpd.conf", line 514
+    From: #Include conf/extra/httpd-vhosts.conf
+    To:    Include conf/extra/httpd-vhosts.conf
+Step 3: Edit httpd-vhosts.conf at "C:\wamp\bin\apache\apache2.4.9\conf\extra\httpd-vhosts.conf", add these lines at the end of file
+    <VirtualHost *:YOUR_PORT>
+        ServerName localhost
+        DocumentRoot c:\wamp\www
+        <Directory "c:\wamp\www/">
+            AllowOverride All
+        </Directory>
+    </VirtualHost>
+
+    <VirtualHost *:YOUR_PORT>
+        ServerName YOUR_FRONTEND_DOMAIN
+        DocumentRoot c:\wamp\www\yii_example\frontend\web
+        <Directory "c:\wamp\www\yii_example\frontend\web/">
+            AllowOverride All
+        </Directory>
+    </VirtualHost>
+
+    <VirtualHost *:YOUR_PORT>
+        ServerName YOUR_BACKEND_DOMAIN
+        DocumentRoot c:\wamp\www\yii_example\backend\web
+        <Directory "c:\wamp\www\yii_example\backend\web/">
+            AllowOverride All
+        </Directory>
+    </VirtualHost>
+Step 4: Restart your server (WAMP)
+    Now you can access your local app via
+        frontend: YOUR_FRONTEND_DOMAIN
+        backend:  YOUR_BACKEND_DOMAIN
+```
+
+THANK YOU
+===============================
+
+Don't be hesitate to contact me if you find a bug, or you want to get some helps.
+
+Facebook: [El Nino](https://www.facebook.com/el.nino.505960)<br>
+Email: <a href="mailto:nguyencuong945@gmail.com">nguyencuong945@gmail.com</a><br>
+Github: [manhcuong06](https://github.com/manhcuong06)
