@@ -179,6 +179,6 @@ THANK YOU
 
 Don't be hesitate to contact me if you find a bug, or you want to get some helps.
 
-[Facebook](https://www.facebook.com/el.nino.505960)
-[Google](nguyencuong945@gmail.com)
+[Facebook](https://www.facebook.com/el.nino.505960)<br>
+[Google](https://plus.google.com/u/0/108898824663504067912)<br>
 [Github](https://github.com/manhcuong06)
