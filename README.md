@@ -148,7 +148,7 @@ Step 2: Edit httpd.conf at "C:\wamp\bin\apache\apache2.4.9\conf\httpd.conf", lin
     From: #Include conf/extra/httpd-vhosts.conf
     To:    Include conf/extra/httpd-vhosts.conf
 Step 3: Edit httpd-vhosts.conf at "C:\wamp\bin\apache\apache2.4.9\conf\extra\httpd-vhosts.conf", add these lines at the end of file
-    <VirtualHost *:81>
+    <VirtualHost *:YOUR_PORT>
         ServerName localhost
         DocumentRoot c:\wamp\www
         <Directory "c:\wamp\www/">
@@ -156,7 +156,7 @@ Step 3: Edit httpd-vhosts.conf at "C:\wamp\bin\apache\apache2.4.9\conf\extra\htt
         </Directory>
     </VirtualHost>
 
-    <VirtualHost *:81>
+    <VirtualHost *:YOUR_PORT>
         ServerName YOUR_FRONTEND_DOMAIN
         DocumentRoot c:\wamp\www\yii_example\frontend\web
         <Directory "c:\wamp\www\yii_example\frontend\web/">
@@ -164,7 +164,7 @@ Step 3: Edit httpd-vhosts.conf at "C:\wamp\bin\apache\apache2.4.9\conf\extra\htt
         </Directory>
     </VirtualHost>
 
-    <VirtualHost *:81>
+    <VirtualHost *:YOUR_PORT>
         ServerName YOUR_BACKEND_DOMAIN
         DocumentRoot c:\wamp\www\yii_example\backend\web
         <Directory "c:\wamp\www\yii_example\backend\web/">
