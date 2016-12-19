@@ -46,10 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
             ],
             [
-                'attribute' => 'image',
+                'attribute' => 'image_id',
                 'format' => 'raw',
                 'value' => function($model, $key, $index) {
-                    return Html::img("/public/img/photos/$model->image", [
+                    return Html::img("/public/img/photos/user1.png", [
                         'alt'    => 'image',
                         'width'  => 75,
                         'height' => 75,

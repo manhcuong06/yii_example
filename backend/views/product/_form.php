@@ -51,11 +51,11 @@ if ($model->isNewRecord) {
     <?= $form->field($model, 'price')->textInput(['type' => 'number'])->icon('dollar') ?>
 
     <?php $image_params = [
-        'name' => 'Product[image]',
+        'name' => 'product_image',
         'pluginOptions' => [
             'uploadUrl' => ['/product/update', 'id' => $model->id],
             'initialPreview' => [
-                ($model->image) ? '/public/img/product/'.$model->image : null,
+                ($model->image) ? '/public/img/product/'.$model->image->name : null,
             ],
             'initialPreviewAsData' => true,
             'initialPreviewConfig' => [
@@ -66,7 +66,7 @@ if ($model->isNewRecord) {
             'removeClass' => 'btn btn-danger',
         ],
     ];?>
-    <?= ($model->isNewRecord) ? $form->field($model, 'image')->widget(FileInput::classname(), $image_params) : FileInput::widget($image_params)?>
+    <?= FileInput::widget($image_params) ?>
 
     <?= $form->field($model, 'is_new')->checkbox()->checkboxCustom('success')?>
 
@@ -105,14 +105,14 @@ if ($model->isNewRecord) {
 <?php if($model->isNewRecord) { ?>
 <script>
 $('#submit').on('click', function() {
-    var image_input_hidden = $('.field-product-image input:not(#product-image)');
-    var image = $('input#product-image');
-    if (image.val()) {
-        image_input_hidden.val(image.val());
+    var image_id_input_hidden = $('.field-product-image-id input:not(#product-image-id)');
+    var image_id = $('input#product-image-id');
+    if (image_id.val()) {
+        image_id_input_hidden.val(image_id.val());
         return true;
     }
-    console.log(image_input_hidden, image_input_hidden.val());
-    console.log(image, image.val());
+    console.log(image_id_input_hidden, image_id_input_hidden.val());
+    console.log(image_id, image_id.val());
     return false;
 });
 </script>

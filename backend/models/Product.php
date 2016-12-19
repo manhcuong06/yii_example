@@ -13,7 +13,7 @@ use Yii;
  * @property string $summary
  * @property string $detail
  * @property integer $price
- * @property string $image
+ * @property integer $image_id
  * @property integer $is_new
  * @property integer $views
  * @property string $created_at
@@ -36,12 +36,11 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'name', 'summary', 'detail', 'price', 'created_at', 'image'], 'required'],
-            [['category_id', 'price', 'is_new', 'views', 'status'], 'integer'],
+            [['category_id', 'name', 'summary', 'detail', 'price', 'created_at'], 'required'],
+            [['category_id', 'price', 'is_new', 'views', 'status', 'image_id'], 'integer'],
             [['summary', 'detail', 'discount'], 'string'],
             [['created_at'], 'safe'],
             [['name'], 'string', 'max' => 64],
-            [['image'], 'string', 'max' => 128],
         ];
     }
 
@@ -57,7 +56,7 @@ class Product extends \yii\db\ActiveRecord
             'summary' => 'Summary',
             'detail' => 'Detail',
             'price' => 'Price',
-            'image' => 'Image',
+            'image_id' => 'Image',
             'is_new' => 'Is New',
             'views' => 'Views',
             'created_at' => 'Created At',
@@ -69,5 +68,10 @@ class Product extends \yii\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(ProductCategory::className(), ['id' => 'category_id']);
+    }
+
+    public function getImage()
+    {
+        return $this->hasOne(Image::className(), ['id' => 'image_id']);
     }
 }

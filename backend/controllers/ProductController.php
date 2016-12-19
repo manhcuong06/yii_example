@@ -6,6 +6,7 @@ use Yii;
 use backend\models\Product;
 use backend\models\ProductCategory;
 use backend\models\ProductSearch;
+use backend\models\Image;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
@@ -107,19 +108,29 @@ class ProductController extends Controller
         $model = $this->findModel($id);
         $categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($image = $this->uploadImage()) {
-                $this->deleteImage($model->image);
-                $model->image = $image;
+        if (Yii::$app->request->post()) {
+            echo '<pre>', print_r($_FILES), '</pre>';
+            echo '<pre>', print_r(Yii::$app->request->post()), '</pre>';
+            echo '<pre>', print_r($model), '</pre>';
+            return;
+        }
+        if (isset($_FILES['product_image']['tmp_name']) && $_FILES['product_image']['tmp_name']) {
+            $image = new Image();
+            if (!$image->uploadToS3($_FILES['product_image']['tmp_name']) || !$image->save()) {
+                return $this->render('update', [
+                    'model' => $model,
+                    'categories' => $categories,
+                ]);
             }
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
+            $model->image_id = $image->id;
+        }
+        if (!$model->load(Yii::$app->request->post()) || !$model->save()) {
+             return $this->render('update', [
                 'model' => $model,
                 'categories' => $categories,
             ]);
         }
+        return $this->redirect(['view', 'id' => $model->id]);
     }
 
     /**
@@ -155,7 +166,7 @@ class ProductController extends Controller
 
     protected function uploadImage()
     {
-        if ($file = UploadedFile::getInstanceByName('Product[image]')) {
+        if ($file = UploadedFile::getInstanceByName('Product[image_id]')) {
             $full_name = date('Y-m-d_H-i-s').'_'.$file->name;
             $file->saveAs('public/img/product/'.$full_name);
             return $full_name;

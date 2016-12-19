@@ -21,6 +21,7 @@ class m130524_201442_init extends Migration
         $this->createInvoice($tableOptions);
         $this->createInvoiceDetail($tableOptions);
         $this->createSession($tableOptions);
+        $this->createImage($tableOptions);
     }
 
     private function createWorker($tableOptions)
@@ -34,7 +35,7 @@ class m130524_201442_init extends Migration
             'password_hash'         => $this->string()->notNull(),
             'password_reset_token'  => $this->string()->unique(),
             'status'                => $this->smallInteger()->notNull()->defaultValue(10),
-            'image'                 => $this->string(128),
+            'image_id'              => $this->integer(),
             'created_at'            => $this->integer()->notNull(),
             'updated_at'            => $this->integer()->notNull(),
         ], $tableOptions);
@@ -53,7 +54,7 @@ class m130524_201442_init extends Migration
             'phone'         => '0979000000',
             'password_hash' => '$2y$13$ZdUw.mB4DoV43cnZ3.UulO5dYTCQXs9MWOf7a/3O.D6hWS.P6sIoq',
             'auth_key'      => 'cei_KonvCVYvaKWoJtLfoBb8mgvNerjb',
-            'image'         => 'user1.png',
+            'image_id'      => null,
             'created_at'    => 1470897811,
             'updated_at'    => 1470897811,
         ]);
@@ -72,7 +73,7 @@ class m130524_201442_init extends Migration
             'password_hash'         => $this->string()->notNull(),
             'password_reset_token'  => $this->string()->unique(),
             'status'                => $this->smallInteger()->notNull()->defaultValue(10),
-            'image'                 => $this->string(128),
+            'image_id'              => $this->integer(),
             'created_at'            => $this->integer()->notNull(),
             'updated_at'            => $this->integer()->notNull(),
         ], $tableOptions);
@@ -85,7 +86,7 @@ class m130524_201442_init extends Migration
         $this->createTable('banner', [
             'id'                => $this->primaryKey(),
             'name'              => $this->string(64)->notNull(),
-            'image'             => $this->string(128)->notNull(),
+            'image_id'          => $this->integer(),
             'status'            => $this->smallInteger()->notNull()->defaultValue(1),
             'link'              => $this->string(128),
         ], $tableOptions);
@@ -115,7 +116,7 @@ class m130524_201442_init extends Migration
             'created_at'        => $this->date()->notNull(),
             'views'             => $this->integer()->notNull()->defaultValue(0),
             'status'            => $this->smallInteger()->notNull()->defaultValue(1),
-            'image'             => $this->string(128)->notNull(),
+            'image_id'          => $this->integer(),
         ], $tableOptions);
 
         return;
@@ -141,7 +142,7 @@ class m130524_201442_init extends Migration
             'summary'           => $this->text()->notNull(),
             'detail'            => $this->text()->notNull(),
             'price'             => $this->integer()->notNull(),
-            'image'             => $this->string(128)->notNull(),
+            'image_id'          => $this->integer(),
             'is_new'            => $this->boolean()->notNull()->defaultValue(1),
             'views'             => $this->integer()->notNull()->defaultValue(0),
             'created_at'        => $this->date()->notNull(),
@@ -202,6 +203,17 @@ class m130524_201442_init extends Migration
         return;
     }
 
+    private function createImage($tableOptions)
+    {
+        $this->createTable('image', [
+            'id'                => $this->primaryKey(),
+            'name'              => $this->string()->notNull(),
+            'url'               => $this->string()->notNull(),
+        ], $tableOptions);
+
+        return;
+    }
+
     public function down()
     {
         $this->dropTable('user');
@@ -214,5 +226,6 @@ class m130524_201442_init extends Migration
         $this->dropTable('invoice');
         $this->dropTable('invoice_detail');
         $this->dropTable('session');
+        $this->dropTable('image');
     }
 }

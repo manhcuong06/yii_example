@@ -35,9 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'summary',
             'price',
             [
-                'attribute' => 'image',
+                'attribute' => 'image_id',
                 'format' => 'raw',
-                'value' => "<img src='/public/img/product/$model->image' width=100 height=100>",
+                'value' => "<img src='/public/img/product/$model->image->name' width=100 height=100>",
             ],
             [
                 'attribute' => 'is_new',

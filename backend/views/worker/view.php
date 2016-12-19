@@ -34,9 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->status ? 'Active' : 'Deactive',
             ],
             [
-                'attribute' => 'image',
+                'attribute' => 'image_id',
                 'format' => 'raw',
-                'value' => "<img src='/public/img/photos/$model->image' width=100 height=100>",
+                'value' => "<img src='/public/img/photos/$model->image->url' width=100 height=100>",
             ],
         ],
     ]) ?>
