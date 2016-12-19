@@ -125,7 +125,7 @@ class ProductController extends Controller
             $model->image_id = $image->id;
         }
         if (!$model->load(Yii::$app->request->post()) || !$model->save()) {
-             return $this->render('update', [
+            return $this->render('update', [
                 'model' => $model,
                 'categories' => $categories,
             ]);
@@ -166,7 +166,7 @@ class ProductController extends Controller
 
     protected function uploadImage()
     {
-        if ($file = UploadedFile::getInstanceByName('Product[image_id]')) {
+        if ($file = UploadedFile::getInstanceByName('Product[image]')) {
             $full_name = date('Y-m-d_H-i-s').'_'.$file->name;
             $file->saveAs('public/img/product/'.$full_name);
             return $full_name;

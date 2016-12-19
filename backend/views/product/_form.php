@@ -101,19 +101,3 @@ if ($model->isNewRecord) {
     <?php ActiveForm::end(); ?>
 
 </div>
-
-<?php if($model->isNewRecord) { ?>
-<script>
-$('#submit').on('click', function() {
-    var image_id_input_hidden = $('.field-product-image-id input:not(#product-image-id)');
-    var image_id = $('input#product-image-id');
-    if (image_id.val()) {
-        image_id_input_hidden.val(image_id.val());
-        return true;
-    }
-    console.log(image_id_input_hidden, image_id_input_hidden.val());
-    console.log(image_id, image_id.val());
-    return false;
-});
-</script>
-<?php } ?>

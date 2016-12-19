@@ -15,8 +15,8 @@ use common\models\User;
  * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
- * @property integer $status
  * @property integer $image_id
+ * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
  */

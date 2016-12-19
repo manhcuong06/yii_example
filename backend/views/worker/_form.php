@@ -64,19 +64,3 @@ if ($model->isNewRecord) {
     <?php ActiveForm::end(); ?>
 
 </div>
-
-<?php if($model->isNewRecord) { ?>
-<script>
-$('#submit').on('click', function() {
-    var image_id_input_hidden = $('.field-worker-image-id input:not(#worker-image-id)');
-    var image_id = $('input#worker-image_id');
-    if (image_id.val()) {
-        image_id_input_hidden.val(image_id.val());
-        return true;
-    }
-    console.log(image_id_input_hidden, image_id_input_hidden.val());
-    console.log(image_id, image_id.val());
-    return false;
-});
-</script>
-<?php } ?>

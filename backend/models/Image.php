@@ -59,7 +59,7 @@ class Image extends \yii\db\ActiveRecord
             'SourceFile'    => $filepath,
             'ACL'           => Yii::$app->params['aws']['acl'],
             'Bucket'        => Yii::$app->params['aws']['bucket'],
-            'StorageClass'   => Yii::$app->params['aws']['storage_class'],
+            'StorageClass'  => Yii::$app->params['aws']['storage_class'],
         ]);
 
         if (!$response) {
