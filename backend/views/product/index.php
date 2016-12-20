@@ -47,8 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'image_id',
                 'format' => 'raw',
                 'value' => function($model, $key, $index) {
-                    $path = "/public/img/product/$model->image->name";
-                    return Html::img(file_exists($path) ? $path : '', [
+                    return Html::img(isset($model->image) ? $model->image->url : '', [
                         'alt'    => 'image',
                         'width'  => 50,
                         'height' => 50,

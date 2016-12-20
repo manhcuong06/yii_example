@@ -108,12 +108,6 @@ class ProductController extends Controller
         $model = $this->findModel($id);
         $categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
 
-        if (Yii::$app->request->post()) {
-            echo '<pre>', print_r($_FILES), '</pre>';
-            echo '<pre>', print_r(Yii::$app->request->post()), '</pre>';
-            echo '<pre>', print_r($model), '</pre>';
-            return;
-        }
         if (isset($_FILES['product_image']['tmp_name']) && $_FILES['product_image']['tmp_name']) {
             $image = new Image();
             if (!$image->uploadToS3($_FILES['product_image']['tmp_name']) || !$image->save()) {
