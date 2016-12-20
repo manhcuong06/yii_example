@@ -157,22 +157,4 @@ class ProductController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-    protected function uploadImage()
-    {
-        if ($file = UploadedFile::getInstanceByName('Product[image]')) {
-            $full_name = date('Y-m-d_H-i-s').'_'.$file->name;
-            $file->saveAs('public/img/product/'.$full_name);
-            return $full_name;
-        }
-        return '';
-    }
-
-    protected function deleteImage($image)
-    {
-        $path = 'public/img/product/'.$image ;
-        if (file_exists($path)) {
-            unlink($path);
-        }
-    }
 }

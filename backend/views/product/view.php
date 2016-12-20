@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'image_id',
                 'format' => 'raw',
-                'value' => "<img src='/public/img/product/$model->image->name' width=100 height=100>",
+                'value' => '<img src="'.$model->image->url.'" width=100 height=100>',
             ],
             [
                 'attribute' => 'is_new',

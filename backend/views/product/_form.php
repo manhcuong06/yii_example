@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
@@ -50,23 +51,22 @@ if ($model->isNewRecord) {
 
     <?= $form->field($model, 'price')->textInput(['type' => 'number'])->icon('dollar') ?>
 
-    <?php $image_params = [
+    <?= FileInput::widget([
         'name' => 'product_image',
+        'options' => ['accept' => 'image/*'],
         'pluginOptions' => [
-            'uploadUrl' => ['/product/update', 'id' => $model->id],
             'initialPreview' => [
-                ($model->image) ? '/public/img/product/'.$model->image->name : null,
+                ($model->image) ? $model->image->url : null,
             ],
             'initialPreviewAsData' => true,
             'initialPreviewConfig' => [
-                ['caption' => $model->image, 'size' => '873727'],
+                ['caption' => ($model->image) ? $model->image->name : '', 'size' => '873727'],
             ],
-            'showUpload'  => false,
             'browseClass' => 'btn btn-success',
+            'uploadClass' => 'btn btn-primary',
             'removeClass' => 'btn btn-danger',
         ],
-    ];?>
-    <?= FileInput::widget($image_params) ?>
+    ]) ?>
 
     <?= $form->field($model, 'is_new')->checkbox()->checkboxCustom('success')?>
 
