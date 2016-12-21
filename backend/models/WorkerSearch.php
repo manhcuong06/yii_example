@@ -49,6 +49,9 @@ class WorkerSearch extends Worker
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'attributes' => ['name', 'email', 'phone', 'status']
+            ]
         ]);
 
         $this->load($params);

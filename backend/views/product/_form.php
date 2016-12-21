@@ -42,31 +42,27 @@ if ($model->isNewRecord) {
     <?= $form->field($model, 'summary')->textarea(['rows' => 6])->icon('info-circle') ?>
 
     <?= $form->field($model, 'detail')->widget(CKEditor::className(), [
-        'options' => [
-            'id'   => 'detail-textarea',
-            'rows' => 6,
-        ],
+        'options' => ['rows' => 6],
         'preset' => 'custom',
     ])->icon('info-circle') ?>
 
     <?= $form->field($model, 'price')->textInput(['type' => 'number'])->icon('dollar') ?>
 
+    <label class="control-label" for="product-image_id">Image</label>
     <?= FileInput::widget([
         'name' => 'product_image',
         'options' => ['accept' => 'image/*'],
         'pluginOptions' => [
-            'initialPreview' => [
-                ($model->image) ? $model->image->url : null,
-            ],
+            'initialPreview' => [$model->image_id ? $model->image->url : null],
             'initialPreviewAsData' => true,
             'initialPreviewConfig' => [
-                ['caption' => ($model->image) ? $model->image->name : '', 'size' => '873727'],
+                ['caption' => $model->image_id ? $model->image->name : '', 'size' => '873727'],
             ],
             'browseClass' => 'btn btn-success',
-            'uploadClass' => 'btn btn-primary',
+            'uploadClass' => 'btn btn-info',
             'removeClass' => 'btn btn-danger',
         ],
-    ]) ?>
+    ]) ?><br>
 
     <?= $form->field($model, 'is_new')->checkbox()->checkboxCustom('success')?>
 
@@ -87,10 +83,7 @@ if ($model->isNewRecord) {
     <?= $form->field($model, 'status')->checkbox()->checkboxCustom('primary')->label('In stock') ?>
 
     <?= $form->field($model, 'discount')->widget(CKEditor::className(), [
-        'options' => [
-            'id'   => 'discount-textarea',
-            'rows' => 6,
-        ],
+        'options' => ['rows' => 6],
         'preset' => 'custom',
     ])->icon('ticket') ?>
 

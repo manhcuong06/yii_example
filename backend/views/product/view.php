@@ -37,7 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'image_id',
                 'format' => 'raw',
-                'value' => '<img src="'.$model->image->url.'" width=100 height=100>',
+                'value' => Html::img($model->image_id ? $model->image->url : '/public/img/no_image.svg', [
+                    'width'  => 100,
+                    'height' => 100,
+                ]),
             ],
             [
                 'attribute' => 'is_new',

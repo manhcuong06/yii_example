@@ -5,7 +5,7 @@ use yii\Url;
 <div class="leftpanel">
     <div class="media profile-left">
         <a class="pull-left profile-thumb" href="profile.html">
-            <img class="img-circle" src="/public/img/photos/user1.png" alt="">
+            <?= Html::img($worker->image_id ? $worker->image->url : '/public/img/no_image.svg', ['class' => 'img-circle']) ?>
         </a>
         <div class="media-body">
             <h4 class="media-heading"><?= $worker->name ?></h4>

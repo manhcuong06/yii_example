@@ -47,8 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'image_id',
                 'format' => 'raw',
                 'value' => function($model, $key, $index) {
-                    return Html::img(($model->image) ? $model->image->url : '', [
-                        'alt'    => 'image',
+                    return Html::img($model->image_id ? $model->image->url : '/public/img/no_image.svg', [
                         'width'  => 50,
                         'height' => 50,
                     ]);

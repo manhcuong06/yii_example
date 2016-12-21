@@ -19,6 +19,7 @@ use yii\web\UploadedFile;
  */
 class ProductController extends Controller
 {
+    protected $categories;
     /**
      * @inheritdoc
      */
@@ -44,6 +45,16 @@ class ProductController extends Controller
         ];
     }
 
+    public function beforeAction($action)
+    {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+        $this->categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
+        
+        return true;
+    }
+
     /**
      * Lists all Product models.
      * @return mixed
@@ -52,12 +63,11 @@ class ProductController extends Controller
     {
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'categories' => $categories,
+            'categories' => $this->categories,
         ]);
     }
 
@@ -68,10 +78,9 @@ class ProductController extends Controller
      */
     public function actionView($id)
     {
-        $categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'categories' => $categories,
+            'categories' => $this->categories,
         ]);
     }
 
@@ -83,18 +92,25 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
-        $categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->image = $this->uploadImage();
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        if (isset($_FILES['product_image']['tmp_name']) && $_FILES['product_image']['tmp_name']) {
+            $image = new Image();
+            if (!$image->uploadToS3($_FILES['product_image']) || !$image->save()) {
+                return $this->render('create', [
+                    'model' => $model,
+                    'categories' => $this->categories,
+                ]);
+            }
+            $model->image_id = $image->id;
+        }
+
+        if (!$model->load(Yii::$app->request->post()) || !$model->save()) {
             return $this->render('create', [
                 'model' => $model,
-                'categories' => $categories,
+                'categories' => $this->categories,
             ]);
         }
+        return $this->redirect(['view', 'id' => $model->id]);
     }
 
     /**
@@ -106,14 +122,18 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
 
         if (isset($_FILES['product_image']['tmp_name']) && $_FILES['product_image']['tmp_name']) {
-            $image = new Image();
-            if (!$image->uploadToS3($_FILES['product_image']['tmp_name']) || !$image->save()) {
+            if ($model->image_id) {
+                $image = $model->image;
+                $image->deleteFromS3();
+            } else {
+                $image = new Image();
+            }
+            if (!$image->uploadToS3($_FILES['product_image']) || !$image->save()) {
                 return $this->render('update', [
                     'model' => $model,
-                    'categories' => $categories,
+                    'categories' => $this->categories,
                 ]);
             }
             $model->image_id = $image->id;
@@ -121,7 +141,7 @@ class ProductController extends Controller
         if (!$model->load(Yii::$app->request->post()) || !$model->save()) {
             return $this->render('update', [
                 'model' => $model,
-                'categories' => $categories,
+                'categories' => $this->categories,
             ]);
         }
         return $this->redirect(['view', 'id' => $model->id]);
@@ -136,7 +156,8 @@ class ProductController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $this->deleteImage($model->image);
+        $model->image->deleteFromS3();
+        $model->image->delete();
         $model->delete();
 
         return $this->redirect(['index']);

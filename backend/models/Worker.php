@@ -74,7 +74,7 @@ class Worker extends \yii\db\ActiveRecord
         return $this->hasOne(Image::className(), ['id' => 'image_id']);
     }
 
-    public function savePasswordAndImage($password = null, $image_id = null)
+    public function savePassword($password = null)
     {
         // validate
         if (!$this->validate()) {
@@ -87,12 +87,10 @@ class Worker extends \yii\db\ActiveRecord
         $user->email  = $this->email;
         $user->phone  = $this->phone;
         $user->status = $this->status;
+        $user->image_id = $this->image_id;
         if (!$this->id || $password) {
             $user->setPassword($password);
             $user->generateAuthKey();
-        }
-        if ($image_id) {
-            $user->image_id = $image_id;
         }
 
         // save

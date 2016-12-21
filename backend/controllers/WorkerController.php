@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Worker;
 use backend\models\WorkerSearch;
+use backend\models\Image;
 use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -79,16 +80,21 @@ class WorkerController extends Controller
     {
         $model = new Worker();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $password = Yii::$app->request->post('Worker')['password'];
-            $image = $this->uploadImage();
-            if ($result = $model->savePasswordAndImage($password, $image)) {
-                return $this->redirect(['view', 'id' => $result->id]);
+        if (isset($_FILES['worker_image']['tmp_name']) && $_FILES['worker_image']['tmp_name']) {
+            $image = new Image();
+            if (!$image->uploadToS3($_FILES['worker_image']) || !$image->save()) {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
             }
+            $model->image_id = $image->id;
         }
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        if (!$model->load(Yii::$app->request->post()) || !$user = $model->savePassword(Yii::$app->request->post('Worker')['password'])) {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+        return $this->redirect(['view', 'id' => $user->id]);
     }
 
     /**
@@ -101,18 +107,26 @@ class WorkerController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
-            $password = Yii::$app->request->post('Worker')['password'];
-            if ($image = $this->uploadImage()) {
-                $this->deleteImage($model->image);
+        if (isset($_FILES['worker_image']['tmp_name']) && $_FILES['worker_image']['tmp_name']) {
+            if ($model->image_id) {
+                $image = $model->image;
+                $image->deleteFromS3();
+            } else {
+                $image = new Image();
             }
-            if ($result = $model->savePasswordAndImage($password, $image)) {
-                return $this->redirect(['view', 'id' => $result->id]);
+            if (!$image->uploadToS3($_FILES['worker_image']) || !$image->save()) {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
             }
+            $model->image_id = $image->id;
         }
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        if (!$model->load(Yii::$app->request->post()) || !$user = $model->savePassword(Yii::$app->request->post('Worker')['password'])) {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+        return $this->redirect(['view', 'id' => $user->id]);
     }
 
     /**
@@ -124,7 +138,8 @@ class WorkerController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $this->deleteImage($model->image);
+        $model->image->deleteFromS3();
+        $model->image->delete();
         $model->delete();
 
         return $this->redirect(['index']);
@@ -152,26 +167,6 @@ class WorkerController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-
-    protected function uploadImage()
-    {
-        if ($file = UploadedFile::getInstanceByName('Worker[image]')) {
-            $full_name = date('Y-m-d_H-i-s').'_'.$file->name;
-            $file->saveAs('public/img/photos/'.$full_name);
-            return $full_name;
-        }
-        return '';
-    }
-
-    protected function deleteImage($image)
-    {
-        if ($image) {
-            $path = 'public/img/photos/'.$image ;
-            if (file_exists($path)) {
-                unlink($path);
-            }
         }
     }
 }

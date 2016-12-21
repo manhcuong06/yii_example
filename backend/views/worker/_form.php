@@ -31,23 +31,20 @@ if ($model->isNewRecord) {
 
     <?= $form->field($model, 'password')->passwordInput()->icon('lock') ?>
 
-    <?php $image_params = [
-        'name' => 'Worker[image_id]',
+    <label class="control-label" for="worker-image_id">Image</label>
+    <?= FileInput::widget([
+        'name' => 'worker_image',
         'pluginOptions' => [
-            'uploadUrl' => ['/worker/update', 'id' => $model->id],
-            'initialPreview' => [
-                ($model->image) ? '/public/img/photos/'.$model->image->url : null,
-            ],
+            'initialPreview' => [$model->image_id ? $model->image->url : null],
             'initialPreviewAsData' => true,
             'initialPreviewConfig' => [
-                ['caption' => $model->image->name, 'size' => '873727'],
+                ['caption' => $model->image_id ? $model->image->name : '', 'size' => '873727'],
             ],
-            'showUpload'  => false,
             'browseClass' => 'btn btn-success',
+            'uploadClass' => 'btn btn-info',
             'removeClass' => 'btn btn-danger',
         ],
-    ];?>
-    <?= ($model->isNewRecord) ? $form->field($model, 'image_id')->widget(FileInput::classname(), $image_params) : FileInput::widget($image_params)?>
+    ]) ?><br>
 
     <?= $form->field($model, 'status')->widget(Select2::className(), [
         'data'  => [User::STATUS_DELETED => 'Deactive', User::STATUS_ACTIVE => 'Active'],

@@ -45,7 +45,7 @@ class Image extends \yii\db\ActiveRecord
         ];
     }
 
-    public function uploadToS3($filepath)
+    public function uploadToS3($file)
     {
         $s3 = S3Client::factory([
             'credentials'   => Yii::$app->params['aws']['credentials'],
@@ -53,10 +53,10 @@ class Image extends \yii\db\ActiveRecord
             'version'       => Yii::$app->params['aws']['version'],
         ]);
 
-        $name = date('Y-m-d_H-i-s');
+        $name = date('Y-m-d_H-i-s_').$file['name'];
         $response   = $s3->putObject([
             'Key'           => $name,
-            'SourceFile'    => $filepath,
+            'SourceFile'    => $file['tmp_name'],
             'ACL'           => Yii::$app->params['aws']['acl'],
             'Bucket'        => Yii::$app->params['aws']['bucket'],
             'StorageClass'  => Yii::$app->params['aws']['storage_class'],
