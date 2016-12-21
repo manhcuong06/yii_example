@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use kartik\select2\Select2;
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\WorkerSearch */
@@ -38,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Select2::widget([
                     'name'    => 'WorkerSearch[status]',
-                    'data'    => [0 => 'Deactive', 10 => 'Active'],
+                    'data'    => [User::STATUS_DELETED => 'Deactive', User::STATUS_ACTIVE => 'Active'],
                     'value'   => $searchModel->status,
                     'options' => [
                         'placeholder' => '',
@@ -46,13 +47,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
             ],
             [
-                'attribute' => 'image',
+                'attribute' => 'image_id',
                 'format' => 'raw',
                 'value' => function($model, $key, $index) {
-                    return Html::img("/public/img/photos/$model->image", [
-                        'alt'    => 'image',
-                        'width'  => 75,
-                        'height' => 75,
+                    return Html::img($model->image_id ? $model->image->url : '/public/img/no_image.svg', [
+                        'width'  => 50,
+                        'height' => 50,
                     ]);
                 },
                 'filter' => false,

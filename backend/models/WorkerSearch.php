@@ -18,8 +18,8 @@ class WorkerSearch extends Worker
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['name', 'email', 'phone', 'image', 'auth_key', 'password_hash', 'password_reset_token'], 'safe'],
+            [['id', 'status', 'image_id'], 'integer'],
+            [['name', 'email', 'phone', 'auth_key', 'password_hash', 'password_reset_token'], 'safe'],
         ];
     }
 
@@ -42,13 +42,16 @@ class WorkerSearch extends Worker
     public function search($params)
     {
         $query = Worker::find()
-            ->select(['id', 'name', 'email', 'phone', 'status', 'image'])
+            ->select(['id', 'name', 'email', 'phone', 'status', 'image_id'])
         ;
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'attributes' => ['name', 'email', 'phone', 'status']
+            ]
         ]);
 
         $this->load($params);

@@ -15,7 +15,7 @@ use common\models\User;
  * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
- * @property string $image
+ * @property integer $image_id
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -38,7 +38,7 @@ class Worker extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'email'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['status', 'created_at', 'updated_at', 'image_id'], 'integer'],
             [['name'], 'string', 'max' => 64],
             [['email'], 'string', 'max' => 128],
             [['phone'], 'string', 'max' => 16],
@@ -63,14 +63,18 @@ class Worker extends \yii\db\ActiveRecord
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
             'status' => 'Status',
-            'image' => 'Image',
+            'image_id' => 'Image',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
     }
 
+    public function getImage()
+    {
+        return $this->hasOne(Image::className(), ['id' => 'image_id']);
+    }
 
-    public function savePasswordAndImage($password = null, $image = null)
+    public function savePassword($password = null)
     {
         // validate
         if (!$this->validate()) {
@@ -83,12 +87,10 @@ class Worker extends \yii\db\ActiveRecord
         $user->email  = $this->email;
         $user->phone  = $this->phone;
         $user->status = $this->status;
+        $user->image_id = $this->image_id;
         if (!$this->id || $password) {
             $user->setPassword($password);
             $user->generateAuthKey();
-        }
-        if ($image) {
-            $user->image = $image;
         }
 
         // save

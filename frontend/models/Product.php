@@ -13,7 +13,7 @@ use Yii;
  * @property string $summary
  * @property string $detail
  * @property integer $price
- * @property string $image
+ * @property integer $image_id
  * @property integer $is_new
  * @property integer $views
  * @property integer $created_at
@@ -36,11 +36,10 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'name', 'summary', 'detail', 'price', 'image', 'created_at'], 'required'],
-            [['category_id', 'price', 'is_new', 'views', 'created_at', 'status'], 'integer'],
+            [['category_id', 'name', 'summary', 'detail', 'price', 'created_at'], 'required'],
+            [['category_id', 'price', 'is_new', 'views', 'created_at', 'status', 'image_id'], 'integer'],
             [['summary', 'detail', 'discount'], 'string'],
             [['name'], 'string', 'max' => 64],
-            [['image'], 'string', 'max' => 128],
         ];
     }
 
@@ -56,7 +55,7 @@ class Product extends \yii\db\ActiveRecord
             'summary' => 'Summary',
             'detail' => 'Detail',
             'price' => 'Price',
-            'image' => 'Image',
+            'image_id' => 'Image',
             'is_new' => 'Is New',
             'views' => 'Views',
             'created_at' => 'Created At',

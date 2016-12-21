@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
@@ -41,32 +42,27 @@ if ($model->isNewRecord) {
     <?= $form->field($model, 'summary')->textarea(['rows' => 6])->icon('info-circle') ?>
 
     <?= $form->field($model, 'detail')->widget(CKEditor::className(), [
-        'options' => [
-            'id'   => 'detail-textarea',
-            'rows' => 6,
-        ],
+        'options' => ['rows' => 6],
         'preset' => 'custom',
     ])->icon('info-circle') ?>
 
     <?= $form->field($model, 'price')->textInput(['type' => 'number'])->icon('dollar') ?>
 
-    <?php $image_params = [
-        'name' => 'Product[image]',
+    <label class="control-label" for="product-image_id">Image</label>
+    <?= FileInput::widget([
+        'name' => 'product_image',
+        'options' => ['accept' => 'image/*'],
         'pluginOptions' => [
-            'uploadUrl' => ['/product/update', 'id' => $model->id],
-            'initialPreview' => [
-                ($model->image) ? '/public/img/product/'.$model->image : null,
-            ],
+            'initialPreview' => [$model->image_id ? $model->image->url : null],
             'initialPreviewAsData' => true,
             'initialPreviewConfig' => [
-                ['caption' => $model->image, 'size' => '873727'],
+                ['caption' => $model->image_id ? $model->image->name : '', 'size' => '873727'],
             ],
-            'showUpload'  => false,
             'browseClass' => 'btn btn-success',
+            'uploadClass' => 'btn btn-info',
             'removeClass' => 'btn btn-danger',
         ],
-    ];?>
-    <?= ($model->isNewRecord) ? $form->field($model, 'image')->widget(FileInput::classname(), $image_params) : FileInput::widget($image_params)?>
+    ]) ?><br>
 
     <?= $form->field($model, 'is_new')->checkbox()->checkboxCustom('success')?>
 
@@ -87,10 +83,7 @@ if ($model->isNewRecord) {
     <?= $form->field($model, 'status')->checkbox()->checkboxCustom('primary')->label('In stock') ?>
 
     <?= $form->field($model, 'discount')->widget(CKEditor::className(), [
-        'options' => [
-            'id'   => 'discount-textarea',
-            'rows' => 6,
-        ],
+        'options' => ['rows' => 6],
         'preset' => 'custom',
     ])->icon('ticket') ?>
 
@@ -101,19 +94,3 @@ if ($model->isNewRecord) {
     <?php ActiveForm::end(); ?>
 
 </div>
-
-<?php if($model->isNewRecord) { ?>
-<script>
-$('#submit').on('click', function() {
-    var image_input_hidden = $('.field-product-image input:not(#product-image)');
-    var image = $('input#product-image');
-    if (image.val()) {
-        image_input_hidden.val(image.val());
-        return true;
-    }
-    console.log(image_input_hidden, image_input_hidden.val());
-    console.log(image, image.val());
-    return false;
-});
-</script>
-<?php } ?>

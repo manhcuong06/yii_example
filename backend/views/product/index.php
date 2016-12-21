@@ -44,12 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'price',
             [
-                'attribute' => 'image',
+                'attribute' => 'image_id',
                 'format' => 'raw',
                 'value' => function($model, $key, $index) {
-                    $path = "/public/img/product/$model->image";
-                    return Html::img(file_exists($path) ? $path : '', [
-                        'alt'    => 'image',
+                    return Html::img($model->image_id ? $model->image->url : '/public/img/no_image.svg', [
                         'width'  => 50,
                         'height' => 50,
                     ]);
@@ -57,6 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => [
                     'style' => 'width: 100px;',
                 ],
+                'filter' => '',
             ],
             [
                 'attribute' => 'status',

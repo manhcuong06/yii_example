@@ -27,8 +27,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'price') ?>
 
-    <?php // echo $form->field($model, 'image') ?>
-
     <?php // echo $form->field($model, 'is_new') ?>
 
     <?php // echo $form->field($model, 'views') ?>
