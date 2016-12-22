@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\bootstrap\ActiveForm;
+use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */
@@ -59,4 +61,49 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <br><h1>Comment</h1>
+    <div id="comment-section">
+        <!-- Load comments here -->
+    </div>
+
+    <label class="comment-label">Make you comment:</label>
+    <?php $form = ActiveForm::begin([
+        'fieldClass' => 'backend\widgets\_ActiveField',
+        'method'     => 'POST',
+        'action'     => ['/comment/create', 'id' => $model->id],
+    ]); ?>
+
+    <?= CKEditor::widget([
+        'name' => 'comment_content',
+        'options' => ['rows' => 6],
+        'preset' => 'custom',
+    ]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Comment', ['id' => 'submit', 'class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
 </div>
+
+<script>
+$(window).on('load', function() {
+    getComments();
+    setInterval(getComments, 10000);
+});
+
+function getComments() {
+    var section = $('#comment-section');
+    var num_of_comment = $('.comment-block').length;
+    $.ajax({
+        'url'    : '/comment',
+        'method' : 'POST',
+        'data'   : { id: <?= $model->id ?>, num_of_comment: num_of_comment }
+    }).done(function(data) {
+        if (data) {
+            section.html(data);
+        }
+    });
+}
+</script>

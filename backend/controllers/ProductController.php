@@ -6,6 +6,7 @@ use Yii;
 use backend\models\Product;
 use backend\models\ProductCategory;
 use backend\models\ProductSearch;
+use backend\models\Comment;
 use backend\models\Image;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -51,7 +52,6 @@ class ProductController extends Controller
             return false;
         }
         $this->categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
-        
         return true;
     }
 
