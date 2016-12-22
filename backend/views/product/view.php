@@ -91,19 +91,19 @@ $this->params['breadcrumbs'][] = $this->title;
 $(window).on('load', function() {
     getComments();
     setInterval(getComments, 10000);
-
-    function getComments() {
-        var section = $('#comment-section');
-        var num_of_comment = $('.comment-block').length;
-        $.ajax({
-            'url'    : '/comment',
-            'method' : 'POST',
-            'data'   : { id: <?= $model->id ?>, num_of_comment: num_of_comment }
-        }).done(function(data) {
-            if (data) {
-                section.html(data);
-            }
-        });
-    }
 });
+
+function getComments() {
+    var section = $('#comment-section');
+    var num_of_comment = $('.comment-block').length;
+    $.ajax({
+        'url'    : '/comment',
+        'method' : 'POST',
+        'data'   : { id: <?= $model->id ?>, num_of_comment: num_of_comment }
+    }).done(function(data) {
+        if (data) {
+            section.html(data);
+        }
+    });
+}
 </script>
