@@ -59,9 +59,9 @@ class Comment extends \yii\db\ActiveRecord
     {
         $comments = Comment::find()
             ->where(['product_id' => $product_id])
+            ->orderBy(['created_at' => SORT_ASC])
             ->all()
         ;
         return $comments;
-
     }
 }

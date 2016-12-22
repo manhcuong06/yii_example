@@ -62,21 +62,9 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <br><h1>Comment</h1>
-    <?php foreach ($comments as $comment) { ?>
-    <div class="comment-block col-sm-12">
-        <div class="image col-sm-2">
-            <?= Html::img(($comment->worker_id && $comment->worker->image) ? $comment->worker->image->url : '/public/img/no_image.svg', [
-                'width'  => 100,
-                'height' => 100,
-            ]) ?>
-        </div>
-        <div class="info col-sm-10">
-            <div class="name"><?= Html::a($comment->worker->name, '#') ?></div>
-            <div class="content"><b><?= $comment->content ?></b></div>
-            <div class="time">Post at: <?= $comment->created_at ?></div>
-        </div>
+    <div id="comment-section">
+        <!-- Load comments here -->
     </div>
-    <?php } ?>
 
     <label class="comment-label">Make you comment:</label>
     <?php $form = ActiveForm::begin([
@@ -98,3 +86,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script>
+$(window).on('load', function() {
+    getComments();
+    setInterval(getComments, 10000);
+
+    function getComments() {
+        var section = $('#comment-section');
+        var num_of_comment = $('.comment-block').length;
+        $.ajax({
+            'url'    : '/comment',
+            'method' : 'POST',
+            'data'   : { id: <?= $model->id ?>, num_of_comment: num_of_comment }
+        }).done(function(data) {
+            if (data) {
+                section.html(data);
+            }
+        });
+    }
+});
+</script>
