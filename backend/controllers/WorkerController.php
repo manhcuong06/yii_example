@@ -115,14 +115,14 @@ class WorkerController extends Controller
                 $image = new Image();
             }
             if (!$image->uploadToS3($_FILES['worker_image']) || !$image->save()) {
-                return $this->render('create', [
+                return $this->render('update', [
                     'model' => $model,
                 ]);
             }
             $model->image_id = $image->id;
         }
         if (!$model->load(Yii::$app->request->post()) || !$user = $model->savePassword(Yii::$app->request->post('Worker')['password'])) {
-            return $this->render('create', [
+            return $this->render('update', [
                 'model' => $model,
             ]);
         }
