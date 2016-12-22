@@ -27,9 +27,9 @@ if ($model->isNewRecord) {
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true])->icon('envelope') ?>
 
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true])->icon('phone') ?>
-
     <?= $form->field($model, 'password')->passwordInput()->icon('lock') ?>
+
+    <?= $form->field($model, 'phone')->textInput(['maxlength' => true])->icon('phone') ?>
 
     <label class="control-label" for="worker-image_id">Image</label>
     <?= FileInput::widget([

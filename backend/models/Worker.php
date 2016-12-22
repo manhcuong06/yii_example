@@ -37,7 +37,7 @@ class Worker extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email'], 'required'],
+            [['name', 'email', 'password'], 'required'],
             [['status', 'created_at', 'updated_at', 'image_id'], 'integer'],
             [['name'], 'string', 'max' => 64],
             [['email'], 'string', 'max' => 128],
@@ -60,6 +60,7 @@ class Worker extends \yii\db\ActiveRecord
             'email' => 'Email',
             'phone' => 'Phone',
             'auth_key' => 'Auth Key',
+            'password' => 'Password',
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
             'status' => 'Status',
