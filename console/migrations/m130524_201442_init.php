@@ -22,6 +22,7 @@ class m130524_201442_init extends Migration
         $this->createInvoiceDetail($tableOptions);
         $this->createSession($tableOptions);
         $this->createImage($tableOptions);
+        $this->createComment($tableOptions);
     }
 
     private function createWorker($tableOptions)
@@ -214,6 +215,19 @@ class m130524_201442_init extends Migration
         return;
     }
 
+    private function createComment($tableOptions)
+    {
+        $this->createTable('comment', [
+            'id'                => $this->primaryKey(),
+            'product_id'        => $this->integer()->notNull(),
+            'worker_id'         => $this->integer()->notNull(),
+            'content'           => $this->text()->notNull(),
+            'created_at'        => $this->datetime()->notNull(),
+        ], $tableOptions);
+
+        return;
+    }
+
     public function down()
     {
         $this->dropTable('user');
@@ -227,5 +241,6 @@ class m130524_201442_init extends Migration
         $this->dropTable('invoice_detail');
         $this->dropTable('session');
         $this->dropTable('image');
+        $this->dropTable('comment');
     }
 }

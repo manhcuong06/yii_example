@@ -7,6 +7,7 @@ return [
     	'news' => '',
         'worker' => 'user',
         'user' => 'users',
+        'comment' => '',
     ],
     'product_status' => [
     	'Sold out',

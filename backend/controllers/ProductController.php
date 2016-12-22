@@ -6,6 +6,7 @@ use Yii;
 use backend\models\Product;
 use backend\models\ProductCategory;
 use backend\models\ProductSearch;
+use backend\models\Comment;
 use backend\models\Image;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -30,7 +31,7 @@ class ProductController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions'   => ['index', 'create', 'update', 'delete', 'view'],
+                        'actions'   => ['index', 'create', 'update', 'delete', 'view', 'comment'],
                         'allow'     => true,
                         'roles'     => ['@'],
                     ],
@@ -40,6 +41,7 @@ class ProductController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'comment' => ['POST'],
                 ],
             ],
         ];
@@ -78,9 +80,11 @@ class ProductController extends Controller
      */
     public function actionView($id)
     {
+        $comments = Comment::getCommentsByProductId($id);
         return $this->render('view', [
             'model' => $this->findModel($id),
             'categories' => $this->categories,
+            'comments' => $comments,
         ]);
     }
 
@@ -161,6 +165,21 @@ class ProductController extends Controller
         $model->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionComment($id)
+    {
+        $comment = new Comment();
+        // echo '<pre>', print_r(Yii::$app->request->post()), '</pre>';
+        // echo '<pre>', print_r($comment), '</pre>';
+        $comment->product_id = $id;
+        $comment->worker_id = Yii::$app->user->id;
+        $comment->content = Yii::$app->request->post('comment_content');
+        $comment->created_at = date('Y-m-d H:i:s');
+        $comment->save();
+        // echo '<pre>', print_r($comment), '</pre>';
+        // return;
+        return $this->redirect(['view', 'id' => $id]);
     }
 
     /**
