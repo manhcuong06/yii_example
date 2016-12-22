@@ -80,13 +80,9 @@ class ProductController extends Controller
      */
     public function actionView($id)
     {
-        $comments = Comment::getCommentsByProductId($id);
-        // echo '<pre>', print_r($comments[0]), '</pre>';
-        // return;
         return $this->render('view', [
             'model' => $this->findModel($id),
             'categories' => $this->categories,
-            'comments' => $comments,
         ]);
     }
 
@@ -173,8 +169,8 @@ class ProductController extends Controller
     {
         $comment = new Comment();
         $comment->product_id = $id;
-        $comment->worker_id = Yii::$app->user->id;
-        $comment->content = Yii::$app->request->post('comment_content');
+        $comment->worker_id  = Yii::$app->user->id;
+        $comment->content    = Yii::$app->request->post('comment_content');
         $comment->created_at = date('Y-m-d H:i:s');
         $comment->save();
         return $this->redirect(['view', 'id' => $id]);
