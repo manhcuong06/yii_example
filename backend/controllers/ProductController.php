@@ -31,7 +31,7 @@ class ProductController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions'   => ['index', 'create', 'update', 'delete', 'view', 'comment'],
+                        'actions'   => ['index', 'create', 'update', 'delete', 'view'],
                         'allow'     => true,
                         'roles'     => ['@'],
                     ],
@@ -41,7 +41,6 @@ class ProductController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
-                    'comment' => ['POST'],
                 ],
             ],
         ];
@@ -53,7 +52,6 @@ class ProductController extends Controller
             return false;
         }
         $this->categories = ArrayHelper::map(ProductCategory::find()->all(), 'id', 'name');
-        
         return true;
     }
 
@@ -163,17 +161,6 @@ class ProductController extends Controller
         $model->delete();
 
         return $this->redirect(['index']);
-    }
-
-    public function actionComment($id)
-    {
-        $comment = new Comment();
-        $comment->product_id = $id;
-        $comment->worker_id  = Yii::$app->user->id;
-        $comment->content    = Yii::$app->request->post('comment_content');
-        $comment->created_at = date('Y-m-d H:i:s');
-        $comment->save();
-        return $this->redirect(['view', 'id' => $id]);
     }
 
     /**

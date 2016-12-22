@@ -7,6 +7,7 @@ use backend\models\Comment;
 use backend\models\CommentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
@@ -14,6 +15,32 @@ use yii\filters\VerbFilter;
  */
 class CommentController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access'    => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions'   => ['index', 'create'],
+                        'allow'     => true,
+                        'roles'     => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'index'  => ['POST'],
+                    'create' => ['POST'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * Lists all Comment models.
      * @return mixed
@@ -41,5 +68,15 @@ class CommentController extends Controller
             return $html;
         }
         return null;
+    }
+    public function actionCreate($id)
+    {
+        $comment = new Comment();
+        $comment->product_id = $id;
+        $comment->worker_id  = Yii::$app->user->id;
+        $comment->content    = Yii::$app->request->post('comment_content');
+        $comment->created_at = date('Y-m-d H:i:s');
+        $comment->save();
+        return $this->redirect(['/product/view', 'id' => $id]);
     }
 }

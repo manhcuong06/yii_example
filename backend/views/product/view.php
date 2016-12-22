@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin([
         'fieldClass' => 'backend\widgets\_ActiveField',
         'method'     => 'POST',
-        'action'     => ['/product/comment', 'id' => $model->id],
+        'action'     => ['/comment/create', 'id' => $model->id],
     ]); ?>
 
     <?= CKEditor::widget([
