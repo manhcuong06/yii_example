@@ -35,7 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'name',
             'summary',
-            'price',
+            [
+                'attribute' => 'price',
+                'value' => $model->price.' $',
+            ],
             [
                 'attribute' => 'image_id',
                 'format' => 'raw',
