@@ -1,12 +1,16 @@
 <?php
 use yii\helpers\Html;
-use yii\Url;
+use yii\helpers\Url;
 ?>
 <div class="leftpanel">
     <div class="media profile-left">
-        <a class="pull-left profile-thumb" href="profile.html">
-            <?= Html::img($worker->image_id ? $worker->image->url : '/public/img/no_image.svg', ['class' => 'img-circle']) ?>
-        </a>
+        <?= Html::a(
+                Html::img($worker->image_id ? $worker->image->url : '/public/img/no_image.svg', ['class' => 'img-circle']),
+                Url::to(['/worker/view', 'id' => $worker->id]),
+                [
+                    'class' => 'pull-left profile-thumb',
+                ]
+        ) ?>
         <div class="media-body">
             <h4 class="media-heading"><?= $worker->name ?></h4>
             <small class="text-muted">Code Lover</small>

@@ -57,7 +57,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => $model->status ? 'text-success' : 'text-danger',
                 ],
             ],
-            'discount',
+            [
+                'attribute' => 'discount',
+                'format' => 'raw',
+                'value' => Html::decode($model->discount),
+            ],
         ],
     ]) ?>
 
