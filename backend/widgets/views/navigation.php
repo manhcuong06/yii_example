@@ -23,8 +23,9 @@ use yii\helpers\Url;
         <li id="product"><?= Html::a('<i class="fa fa-laptop"></i> <span>Product</span>', '/product') ?></li>
         <li id="worker"><?= Html::a('<i class="fa fa-user"></i> <span>Worker</span>', '/worker') ?></li>
         <li id="user"><?= Html::a('<i class="fa fa-users"></i> <span>User</span>', '/user') ?></li>
+        <li id="news"><?= Html::a('<i class="fa fa-indent"></i> <span>News</span>', '/news') ?></li>
 
-        <li><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
+        <!-- <li><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
         <li><a href="/product"><span class="pull-right badge">5</span><i class="fa fa-envelope-o"></i> <span>Messages</span></a></li>
         <li class="parent"><a href="#"><i class="fa fa-suitcase"></i> <span>UI Elements</span></a>
             <ul class="children">
@@ -71,7 +72,7 @@ use yii\helpers\Url;
                 <li><a href="signin.html">Sign In</a></li>
                 <li><a href="signup.html">Sign Up</a></li>
             </ul>
-        </li>
+        </li> -->
     </ul>
 </div>
 <script>
