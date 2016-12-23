@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    <br><h1>Comment</h1>
+    <br><h1><span id="num-of-comment">0</span> comments</h1>
     <div id="comment-section">
         <!-- Load comments here -->
     </div>
@@ -110,6 +110,7 @@ function getComments() {
     }).done(function(data) {
         if (data) {
             section.html(data);
+            $('#num-of-comment').html($('.comment-block').length);
         }
     });
 }
