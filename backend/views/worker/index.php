@@ -73,10 +73,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     },
                     'update' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-pencil"></i>', $url, [
-                            'title' => 'Update',
-                            'class' => 'btn btn-primary',
-                        ]);
+                        if ($model->status) {
+                            return Html::a('<i class="fa fa-pencil"></i>', $url, [
+                                'title' => 'Update',
+                                'class' => 'btn btn-primary',
+                            ]);
+                        }
                     },
                     'delete' => function ($url, $model, $key) {
                         if ($model->id != Yii::$app->user->id) {

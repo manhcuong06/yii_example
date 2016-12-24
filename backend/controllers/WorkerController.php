@@ -9,6 +9,7 @@ use backend\models\Image;
 use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\filters\AccessControl;
@@ -107,6 +108,10 @@ class WorkerController extends Controller
     {
         $model = $this->findModel($id);
 
+        if (!$model->status) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         if (isset($_FILES['worker_image']['tmp_name']) && $_FILES['worker_image']['tmp_name']) {
             if ($model->image_id) {
                 $image = $model->image;
@@ -138,8 +143,10 @@ class WorkerController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $model->image->deleteFromS3();
-        $model->image->delete();
+        if ($model->image_id) {
+            $model->image->deleteFromS3();
+            $model->image->delete();
+        }
         $model->delete();
 
         return $this->redirect(['index']);

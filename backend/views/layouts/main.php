@@ -32,7 +32,6 @@ $icon_name = Yii::$app->params['icons'][Yii::$app->controller->id];
 <?php $this->beginBody() ?>
 
 <?php if(Yii::$app->user->isGuest) { ?>
-    <?= Alert::widget() ?>
     <?= $content ?>
 <?php } else { ?>
 <?= MenuTopWidget::widget() ?>
