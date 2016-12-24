@@ -5,6 +5,7 @@
 /* @var $model \common\models\LoginForm */
 
 use yii\helpers\Html;
+use common\widgets\Alert;
 use yii\bootstrap\ActiveForm;
 use yii\authclient\widgets\AuthChoice;
 
@@ -14,6 +15,7 @@ $this->registerCssFile('/public/css/bootstrap-social.css');
 <div class="site-login">
     <div class="panel panel-signin">
         <div class="panel-body">
+            <?= Alert::widget() ?>
             <div class="logo text-center">
                 <img src="/public/img/logo-primary.png" alt="Chain Logo" >
             </div>
@@ -26,6 +28,7 @@ $this->registerCssFile('/public/css/bootstrap-social.css');
                 'id' => 'login-form',
                 'fieldClass' => 'backend\widgets\_ActiveField',
             ]); ?>
+
             <?= $form->field($model, 'email')->textInput(['autofocus' => true])->icon('envelope') ?>
 
             <?= $form->field($model, 'password')->passwordInput()->icon('lock') ?>
@@ -38,6 +41,7 @@ $this->registerCssFile('/public/css/bootstrap-social.css');
                     <?= Html::submitButton('Sign In <i class="fa fa-sign-in ml5"></i>', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
                 </div>
             </div>
+            <?= Html::a('Forgot Password', ['request-password-reset']) ?>
 
             <?php ActiveForm::end(); ?>
 

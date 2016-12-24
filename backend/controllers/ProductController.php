@@ -156,8 +156,10 @@ class ProductController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $model->image->deleteFromS3();
-        $model->image->delete();
+        if ($model->image_id) {
+            $model->image->deleteFromS3();
+            $model->image->delete();
+        }
         $model->delete();
 
         return $this->redirect(['index']);
