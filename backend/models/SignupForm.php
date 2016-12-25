@@ -50,7 +50,6 @@ class SignupForm extends Model
         $user->name   = $this->name;
         $user->email  = $this->email;
         $user->phone  = $this->phone;
-        $user->image  = 'user1.png';
         $user->status = User::STATUS_DELETED;
         $user->setPassword($this->password);
         $user->generateAuthKey();
