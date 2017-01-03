@@ -99,7 +99,7 @@ class SiteController extends Controller
             $model = new SignupForm();
             $model->load($params);
             $user = $model->signup();
-            Yii::$app->session->setFlash('success', 'Create account successfully. Please wait for confimation.');
+            Yii::$app->session->setFlash('success', 'Successfully. Please wait for confimation.');
         }
     }
 
