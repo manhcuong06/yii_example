@@ -3,6 +3,8 @@
 namespace frontend\models;
 
 use Yii;
+use backend\models\Image;
+use backend\models\ProductCategory;
 
 /**
  * This is the model class for table "product".
@@ -71,5 +73,15 @@ class Product extends \yii\db\ActiveRecord
     public static function find()
     {
         return new ProductQuery(get_called_class());
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(ProductCategory::className(), ['id' => 'category_id']);
+    }
+
+    public function getImage()
+    {
+        return $this->hasOne(Image::className(), ['id' => 'image_id']);
     }
 }

@@ -17,6 +17,7 @@ class AppAsset extends AssetBundle
         'public/css/stylish-portfolio.css',
         'public/css/site.css',
         'public/css/style.css',
+        'public/css/shopping-cart.css',
     ];
     public $js = [
         'public/js/jquery.js',
@@ -24,6 +25,8 @@ class AppAsset extends AssetBundle
         'public/js/main.js',
         'public/js/bootstrap.js',
         'public/js/bootstrap.min.js',
+        'public/js/jquery.easing.1.3.js',
+        'public/js/jquery-ui.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
