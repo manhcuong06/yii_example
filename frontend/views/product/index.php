@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="wrapper">
         <h1 class="title"><?= Html::encode($this->title) ?></h1>
-        <span><i class="shopping-cart"></i></span>
+        <span><i class="shopping-cart"></i><i class="quantity"></i></span>
         <div class="clear"></div>
         <div class="items">
         <?php foreach ($products as $product) { ?>

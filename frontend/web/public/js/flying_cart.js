@@ -3,9 +3,12 @@
 	(c) 2013 @ElmahdiMahmoud - fikra-masri.by
 	license: http://www.opensource.org/licenses/mit-license.php
 */
+var product_quantity = 0;
 $('.add-to-cart').on('click', function () {
     var imgtodrag = $(this).parent('.item').find("img").eq(0);
     var cart = $('.shopping-cart');
+    var quantity = $('.quantity');
+    product_quantity++;
     if (imgtodrag) {
         var imgclone = imgtodrag.clone()
         .css({
@@ -29,6 +32,7 @@ $('.add-to-cart').on('click', function () {
             cart.effect("shake", {
             	times: 2
             }, 200);
+            quantity.text(product_quantity);
         }, 1500);
 
         imgclone.animate({
